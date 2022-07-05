@@ -225,16 +225,13 @@ type TrafficSplitListChannel struct {
 // must be read numReads times.
 func GetTrafficSplitListChannel(smiSplitClient smisplitclientset.Interface, nsQuery *NamespaceQuery,
 	numReads int) TrafficSplitListChannel {
-	println("===========>> >>> >>> GetTrafficSplitListChannel")
 	channel := TrafficSplitListChannel{
 		List:  make(chan *smisplitv1alpha2.TrafficSplitList, numReads),
 		Error: make(chan error, numReads),
 	}
 
 	go func() {
-		println("bbbb")
 		list, err := smiSplitClient.SplitV1alpha2().TrafficSplits(nsQuery.ToRequestParam()).List(context.TODO(), api.ListEverything)
-		println("cccc")
 		var filteredItems []smisplitv1alpha2.TrafficSplit
 		for _, item := range list.Items {
 			if nsQuery.Matches(item.ObjectMeta.Namespace) {
