@@ -1086,10 +1086,15 @@ func (apiHandler *APIHandler) handleGetMeshConfigList(request *restful.Request, 
 		errors.HandleInternalError(response, err)
 		return
 	}
+	k8sClient, err := apiHandler.cManager.Client(request)
+	if err != nil {
+		errors.HandleInternalError(response, err)
+		return
+	}
 
 	namespace := parseNamespacePathParameter(request)
 	dataSelect := parser.ParseDataSelectPathParameter(request)
-	result, err := meshconfig.GetMeshConfigList(osmConfigClient, namespace, dataSelect)
+	result, err := meshconfig.GetMeshConfigList(osmConfigClient, k8sClient, namespace, dataSelect)
 	if err != nil {
 		errors.HandleInternalError(response, err)
 		return
