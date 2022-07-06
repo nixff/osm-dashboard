@@ -79,17 +79,31 @@ func (self OsmCliHandler) handleOsmInstall(request *restful.Request, response *r
 	installClient.Namespace = osmInstallSpec.Namespace
 	installClient.CreateNamespace = true
 	installClient.Wait = false
-	installClient.Atomic = false
-	installClient.Timeout = 5 * time.Minute
+	installClient.Atomic = osmInstallSpec.Atomic
+	installClient.Timeout = time.Duration(osmInstallSpec.Timeout) * time.Minute
 
 	values := map[string]interface{}{}
-	values["deployGrafana"] = true
-	values["deployJaeger"] = true
-	values["deployPrometheus"] = true
-	values["enablePermissiveTrafficPolicy"] = true
-	values["enforceSingleMesh"] = osmInstallSpec.EnforceSingleMesh
-	values["meshName"] = osmInstallSpec.MeshName
-	values["osmNamespace"] = osmInstallSpec.Namespace
+	osm := map[string]interface{}{}
+	values["osm"] = osm
+	osm["deployGrafana"] = true
+	osm["enablePermissiveTrafficPolicy"] = true
+	osm["enforceSingleMesh"] = osmInstallSpec.EnforceSingleMesh
+	osm["meshName"] = osmInstallSpec.MeshName
+	osm["osmNamespace"] = osmInstallSpec.Namespace
+
+	tracing := map[string]interface{}{}
+	osm["tracing"] = tracing
+	tracing["enable"] = osmInstallSpec.Osm.Tracing.Enable
+	osm["deployJaeger"] = osmInstallSpec.Osm.DeployJaeger
+	//tracing["address"] = osmInstallSpec.Osm.Tracing.Address TODO
+	//tracing["port"] = osmInstallSpec.Osm.Tracing.Port
+	//tracing["endpoint"] = osmInstallSpec.Osm.Tracing.Endpoint
+
+	prometheus := map[string]interface{}{}
+	osm["prometheus"] = prometheus
+	osm["deployPrometheus"] = osmInstallSpec.Osm.DeployPrometheus
+	//prometheus["image"] = osmInstallSpec.Osm.Prometheus.Image
+	//prometheus["port"] = osmInstallSpec.Osm.Prometheus.Port
 
 	chartRequested, err := loader.LoadArchive(bytes.NewReader(chartTGZSource))
 	if err != nil {
