@@ -24,6 +24,7 @@ type MeshConfig struct {
 	// +optional
 	Spec       osmconfigv1alph2.MeshConfigSpec `json:"spec,omitempty"`
 	MeshStatus MeshStatus                      `json:"status"`
+	MeshName   string                          `json:"meshName"`
 }
 
 // MeshConfigList contains a list of MeshConfigs in the cluster.
@@ -81,19 +82,26 @@ func toMeshConfig(client client.Interface, meshConfig *osmconfigv1alph2.MeshConf
 	options.LabelSelector = "app=osm-injector"
 	injectors, err := client.CoreV1().Pods(namespace).List(context.TODO(), options)
 
-	if err != nil {
-	}
-	meshStatus := MeshStatus{
-		Bootstrap:  GetPodStatus(bootstraps.Items),
-		Controller: GetPodStatus(controllers.Items),
-		Injector:   GetPodStatus(injectors.Items),
+	meshStatus := MeshStatus{}
+	if err == nil {
+		meshStatus = MeshStatus{
+			Bootstrap:  GetPodStatus(bootstraps.Items),
+			Controller: GetPodStatus(controllers.Items),
+			Injector:   GetPodStatus(injectors.Items),
+		}
 	}
 
+	meshName := ""
+	configMap, err := client.CoreV1().ConfigMaps(namespace).Get(context.TODO(), meshConfig.ObjectMeta.Name, metaV1.GetOptions{})
+	if err == nil {
+		meshName = configMap.ObjectMeta.Labels["meshName"]
+	}
 	return MeshConfig{
 		ObjectMeta: api.NewObjectMeta(meshConfig.ObjectMeta),
 		TypeMeta:   api.NewTypeMeta(api.ResourceKindMeshConfig),
 		Spec:       meshConfig.Spec,
 		MeshStatus: meshStatus,
+		MeshName:   meshName,
 	}
 }
 func GetPodStatus(pods []podApi.Pod) string {

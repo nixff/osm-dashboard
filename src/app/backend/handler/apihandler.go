@@ -1109,9 +1109,15 @@ func (apiHandler *APIHandler) handleGetMeshConfigDetail(request *restful.Request
 		return
 	}
 
+	k8sClient, err := apiHandler.cManager.Client(request)
+	if err != nil {
+		errors.HandleInternalError(response, err)
+		return
+	}
+
 	namespace := request.PathParameter("namespace")
 	name := request.PathParameter("name")
-	result, err := meshconfig.GetMeshConfigDetail(osmConfigClient, namespace, name)
+	result, err := meshconfig.GetMeshConfigDetail(osmConfigClient, k8sClient, namespace, name)
 	if err != nil {
 		errors.HandleInternalError(response, err)
 		return
