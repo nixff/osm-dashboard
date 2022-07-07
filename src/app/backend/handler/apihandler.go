@@ -1213,7 +1213,7 @@ func (apiHandler *APIHandler) handleGetMeshConfigServices(request *restful.Reque
 	namespace := request.PathParameter("namespace")
 	meshconfigname := request.PathParameter("meshconfig")
 	dataSelect := parser.ParseDataSelectPathParameter(request)
-	result, err := ns.GetMeshConfigNamespaces(osmConfigClient, k8sClient, namespace, meshconfigname, dataSelect)
+	result, err := resourceService.GetMeshConfigServices(osmConfigClient, k8sClient, namespace, meshconfigname, dataSelect)
 	if err != nil {
 		errors.HandleInternalError(response, err)
 		return
