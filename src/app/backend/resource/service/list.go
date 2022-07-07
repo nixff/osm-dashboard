@@ -58,6 +58,9 @@ type ServiceList struct {
 
 	// List of non-critical errors, that occurred during resource retrieval.
 	Errors []error `json:"errors"`
+
+	// Basic information about resources status on the list.
+	Status common.ResourceStatus `json:"status"`
 }
 
 // GetServiceList returns a list of all services in the cluster.
@@ -103,6 +106,7 @@ func CreateServiceList(services []v1.Service, nonCriticalErrors []error, dsQuery
 		Services: make([]Service, 0),
 		ListMeta: api.ListMeta{TotalItems: len(services)},
 		Errors:   nonCriticalErrors,
+		Status:   common.ResourceStatus{Succeeded: len(services)},
 	}
 
 	serviceCells, filteredTotal := dataselect.GenericDataSelectWithFilter(toCells(services), dsQuery)
