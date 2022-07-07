@@ -12,17 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {NgModule} from '@angular/core';
+@use '../../../variables' as *;
 
-import {ComponentsModule} from '@common/components/module';
-import {SharedModule} from '../../../shared.module';
+.kd-graph-container {
+  flex: auto;
+  text-align: center;
+}
 
-import {MeshConfigDetailComponent} from './detail/component';
-import {MeshConfigListComponent} from './list/component';
-import {MeshConfigRoutingModule} from './routing';
-
-@NgModule({
-  imports: [SharedModule, ComponentsModule, MeshConfigRoutingModule],
-  declarations: [MeshConfigListComponent, MeshConfigDetailComponent],
-})
-export class MeshConfigModule {}
+.kd-graph-title {
+  font-size: $subhead-font-size-base;
+  padding-bottom: 2 * $baseline-grid;
+}

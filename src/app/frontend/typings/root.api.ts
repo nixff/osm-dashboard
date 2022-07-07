@@ -152,6 +152,8 @@ export interface JobList extends ResourceList {
 
 export interface NamespaceList extends ResourceList {
   namespaces: Namespace[];
+  status: Status;
+  cumulativeMetrics: Metric[] | null;
 }
 
 export interface NodeList extends ResourceList {
@@ -199,6 +201,8 @@ export interface SecretList extends ResourceList {
 
 export interface ServiceList extends ResourceList {
   services: Service[];
+  status: Status;
+  cumulativeMetrics: Metric[] | null;
 }
 
 export interface MeshconfigList extends ResourceList {
@@ -473,6 +477,7 @@ export interface ServiceDetail extends ResourceDetail {
 export interface MeshconfigDetail extends ResourceDetail {
   selector: StringMap;
 	spec: object;
+	meshName: string;
 }
 
 export interface DaemonSetDetail extends ResourceDetail {

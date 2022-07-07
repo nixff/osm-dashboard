@@ -17,6 +17,8 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+	Output,
+	EventEmitter,
   OnChanges,
   OnInit,
   SimpleChanges,
@@ -61,8 +63,11 @@ const MAX_CHIP_VALUE_LENGTH = 63;
 export class ChipsComponent implements OnInit, OnChanges {
   @Input() map: any;
   @Input() displayAll = false;
+  @Input() type = 'text';
   @Input() edit = false;
   @Input() placeholder: any;
+  @Output() mapChange = new EventEmitter<any>();
+  @Output() change = new EventEmitter<any>();
   keys: string[];
   isShowingAll = false;
   private _labelsLimit = 3;
@@ -147,16 +152,22 @@ export class ChipsComponent implements OnInit, OnChanges {
     this._matDialog.open(ChipDialog, dialogConfig);
   }
 
-  remove(key: any): void {
+  remove(key: any,index: number): void {
     if (Array.isArray(this.map)) {
-			this.map.splice(key, 1);
+			this.map.splice(index, 1);
     } else {
       delete this.map[key];
 		}
+    this.mapChange.emit(this.map);
+		this.change.emit();
+    this._changeDetectorRef.detectChanges();
   }
 	
 	add(event: any): void {
-		const value = (event.target.value || '').trim();
+		let value = (event.target.value || '').trim();
+		if(this.type == 'number'){
+			value = value * 1;
+		}
 		if (value) {
 			if (Array.isArray(this.map)) {
 				this.map.push(value);

@@ -12,10 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {Component} from '@angular/core';
+import {NgModule} from '@angular/core';
 
-@Component({
-  selector: 'kd-meshconfig-list-state',
-  template: '<kd-meshconfig-list></kd-meshconfig-list>',
+import {ComponentsModule} from '@common/components/module';
+import {SharedModule} from '../../../shared.module';
+
+import {MeshConfigComponent} from './config/component';
+import {MeshDetailComponent} from './detail/component';
+import {MeshListComponent} from './list/component';
+import {MeshRoutingModule} from './routing';
+
+@NgModule({
+  imports: [SharedModule, ComponentsModule, MeshRoutingModule],
+  declarations: [MeshListComponent, MeshDetailComponent, MeshConfigComponent],
 })
-export class MeshConfigListComponent {}
+export class MeshModule {}
