@@ -695,6 +695,10 @@ func CreateHTTPAPIHandler(iManager integration.IntegrationManager, cManager clie
 			To(apiHandler.handleMeshValidity).
 			Reads(validation.MeshNameValidityMetadata{}).
 			Writes(validation.MeshNameValidity{}))
+	apiV1Ws.Route(
+		apiV1Ws.GET("/meshconfig/{namespace}/{meshconfig}/namespace").
+			To(apiHandler.handleGetMeshConfigNamespaces).
+			Writes(ns.NamespaceList{}))
 
 	apiV1Ws.Route(
 		apiV1Ws.GET("/crd").
@@ -1163,6 +1167,29 @@ func (apiHandler *APIHandler) handleMeshValidity(request *restful.Request, respo
 	}
 
 	response.WriteHeaderAndEntity(http.StatusOK, validity)
+}
+
+func (apiHandler *APIHandler) handleGetMeshConfigNamespaces(request *restful.Request, response *restful.Response) {
+	osmConfigClient, err := apiHandler.cManager.OsmConfigClient(request)
+	if err != nil {
+		errors.HandleInternalError(response, err)
+		return
+	}
+
+	k8sClient, err := apiHandler.cManager.Client(request)
+	if err != nil {
+		errors.HandleInternalError(response, err)
+		return
+	}
+
+	namespace := request.PathParameter("namespace")
+	meshconfigname := request.PathParameter("meshconfig")
+	result, err := meshconfig.GetMeshConfigNamespaces(osmConfigClient, k8sClient, namespace, meshconfigname)
+	if err != nil {
+		errors.HandleInternalError(response, err)
+		return
+	}
+	response.WriteHeaderAndEntity(http.StatusOK, result)
 }
 
 func (apiHandler *APIHandler) handleGetServiceAccountList(request *restful.Request, response *restful.Response) {
