@@ -35,6 +35,9 @@ type NamespaceList struct {
 
 	// List of non-critical errors, that occurred during resource retrieval.
 	Errors []error `json:"errors"`
+
+	// Basic information about resources status on the list.
+	Status common.ResourceStatus `json:"status"`
 }
 
 // Namespace is a presentation layer view of Kubernetes namespaces. This means it is namespace plus
@@ -77,6 +80,7 @@ func toNamespaceList(namespaces []v1.Namespace, nonCriticalErrors []error, dsQue
 	namespaceList := &NamespaceList{
 		Namespaces: make([]Namespace, 0),
 		ListMeta:   api.ListMeta{TotalItems: len(namespaces)},
+		Status:     common.ResourceStatus{Succeeded: len(namespaces)},
 	}
 
 	namespaceCells, filteredTotal := dataselect.GenericDataSelectWithFilter(toCells(namespaces), dsQuery)

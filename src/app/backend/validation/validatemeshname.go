@@ -43,7 +43,7 @@ func ValidateMeshName(metadata *MeshNameValidityMetadata, osmConfigClient osmcon
 	log.Printf("Validating %s mesh config name in %s namespace", metadata.Name, metadata.Namespace)
 
 	isValid := false
-	_, err := osmConfigClient.ConfigV1alpha2().MeshConfigs(metadata.Namespace).Get(context.TODO(), metadata.Name+"-mesh-config", metaV1.GetOptions{})
+	_, err := osmConfigClient.ConfigV1alpha2().MeshConfigs(metadata.Namespace).Get(context.TODO(), "osm-mesh-config", metaV1.GetOptions{})
 
 	println(errors.IsNotFoundError(err))
 	if err != nil {
