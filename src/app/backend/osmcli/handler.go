@@ -93,15 +93,15 @@ func (self OsmCliHandler) handleOsmInstall(request *restful.Request, response *r
 
 	tracing := map[string]interface{}{}
 	osm["tracing"] = tracing
-	tracing["enable"] = osmInstallSpec.Osm.Tracing.Enable
-	osm["deployJaeger"] = osmInstallSpec.Osm.DeployJaeger
+	tracing["enable"] = osmInstallSpec.Options.Osm.Tracing.Enable
+	osm["deployJaeger"] = osmInstallSpec.Options.Osm.DeployJaeger
 	//tracing["address"] = osmInstallSpec.Osm.Tracing.Address TODO
 	//tracing["port"] = osmInstallSpec.Osm.Tracing.Port
 	//tracing["endpoint"] = osmInstallSpec.Osm.Tracing.Endpoint
 
 	prometheus := map[string]interface{}{}
 	osm["prometheus"] = prometheus
-	prometheus["deployPrometheus"] = osmInstallSpec.Osm.DeployPrometheus
+	osm["deployPrometheus"] = osmInstallSpec.Options.Osm.DeployPrometheus
 	//prometheus["image"] = osmInstallSpec.Osm.Prometheus.Image
 	//prometheus["port"] = osmInstallSpec.Osm.Prometheus.Port
 

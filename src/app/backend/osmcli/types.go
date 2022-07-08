@@ -11,8 +11,12 @@ type OsmInstallSpec struct {
 
 	Atomic bool `json:"atomic"`
 
+	Options Options `json:"options"`
+}
+type Options struct {
 	Osm Osm `json:"osm"`
 }
+
 type Osm struct {
 	Tracing          Tracing    `json:"tracing"`
 	Prometheus       Prometheus `json:"prometheus"`
