@@ -101,7 +101,7 @@ func (self OsmCliHandler) handleOsmInstall(request *restful.Request, response *r
 
 	prometheus := map[string]interface{}{}
 	osm["prometheus"] = prometheus
-	osm["deployPrometheus"] = osmInstallSpec.Osm.DeployPrometheus
+	prometheus["deployPrometheus"] = osmInstallSpec.Osm.DeployPrometheus
 	//prometheus["image"] = osmInstallSpec.Osm.Prometheus.Image
 	//prometheus["port"] = osmInstallSpec.Osm.Prometheus.Port
 
