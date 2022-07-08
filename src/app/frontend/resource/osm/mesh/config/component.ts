@@ -18,16 +18,21 @@ import {MeshconfigDetail} from '@api/root.api';
 import {ActionbarService, ResourceMeta} from '@common/services/global/actionbar';
 import {NotificationsService} from '@common/services/global/notifications';
 import {EndpointManager, Resource} from '@common/services/resource/endpoint';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {NamespacedResourceService} from '@common/services/resource/resource';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {RawResource} from '@common/resources/rawresource';
+import {AlertDialogConfig, AlertDialog} from 'common/dialogs/alert/dialog';
+import {MatDialogConfig, MatDialog} from '@angular/material/dialog';
+import lodash from 'lodash';
 
 @Component({
-  selector: 'kd-meshconfig-detail',
+  selector: 'kd-mesh-config',
   templateUrl: './template.html',
   styleUrls: ['style.scss'],
 })
-export class MeshConfigDetailComponent implements OnInit, OnDestroy {
+export class MeshConfigComponent implements OnInit, OnDestroy {
   meshconfig: MeshconfigDetail;
   isInitialized = false;
   podListEndpoint: string;
@@ -39,6 +44,8 @@ export class MeshConfigDetailComponent implements OnInit, OnDestroy {
   private readonly unsubscribe_ = new Subject<void>();
 
   constructor(
+    private readonly http_: HttpClient,
+    private readonly dialog_: MatDialog,
     private readonly service_: NamespacedResourceService<MeshconfigDetail>,
     private readonly actionbar_: ActionbarService,
     private readonly activatedRoute_: ActivatedRoute,
@@ -63,7 +70,36 @@ export class MeshConfigDetailComponent implements OnInit, OnDestroy {
         this.isInitialized = true;
       });
   }
-
+	save(): void {
+		const url = RawResource.getUrl(this.meshconfig.typeMeta, this.meshconfig.objectMeta);
+		this.http_.get(url, {headers: this.getHttpHeaders_(), responseType: 'text'})
+		.subscribe(_result => {
+			const result = JSON.parse(_result)
+			result.spec = lodash.cloneDeep(this.meshconfig.spec);
+			this.http_.put(url, result, {headers: this.getHttpHeaders_(), responseType: 'text'})
+			.subscribe(_ => {
+			}, this.handleErrorResponse_.bind(this));
+		});
+	}
+  private getHttpHeaders_(): HttpHeaders {
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');
+    headers.set('Accept', 'application/json');
+    return headers;
+  }
+  private handleErrorResponse_(err: HttpErrorResponse): void {
+    if (err) {
+      const alertDialogConfig: MatDialogConfig<AlertDialogConfig> = {
+        width: '630px',
+        data: {
+          title: err.statusText === 'OK' ? 'Internal server error' : err.statusText,
+          message: err.error || 'Could not perform the operation.',
+          confirmLabel: 'OK',
+        },
+      };
+      this.dialog_.open(AlertDialog, alertDialogConfig);
+    }
+  }
   ngOnDestroy(): void {
     this.unsubscribe_.next();
     this.unsubscribe_.complete();

@@ -111,6 +111,8 @@ export interface ResourcesRatio {
   replicaSetRatio: RatioItem[];
   replicationControllerRatio: RatioItem[];
   statefulSetRatio: RatioItem[];
+  namespaceRatio: RatioItem[];
+  serviceRatio: RatioItem[];
 }
 
 export interface StateError {

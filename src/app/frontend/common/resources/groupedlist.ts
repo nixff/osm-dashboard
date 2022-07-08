@@ -23,6 +23,8 @@ import {
   ReplicationControllerList,
   ResourceList,
   StatefulSetList,
+  NamespaceList,
+  ServiceList,
 } from '@api/root.api';
 import {OnListChangeEvent, ResourcesRatio} from '@api/root.ui';
 
@@ -132,6 +134,26 @@ export class GroupedResourceList {
           statefulSets.status,
           statefulSets.listMeta.totalItems
         );
+        break;
+      }
+      case ListIdentifier.namespace: {
+        const namespaces = list as NamespaceList;
+        this.resourcesRatio.namespaceRatio = Helper.getResourceRatio(
+          namespaces.status,
+          namespaces.listMeta.totalItems,
+          ResourceRatioModes.Completable
+        );
+        this.cumulativeMetrics = namespaces.cumulativeMetrics;
+        break;
+      }
+      case ListIdentifier.service: {
+        const services = list as ServiceList;
+        this.resourcesRatio.serviceRatio = Helper.getResourceRatio(
+          services.status,
+          services.listMeta.totalItems,
+          ResourceRatioModes.Completable
+        );
+        this.cumulativeMetrics = services.cumulativeMetrics;
         break;
       }
       default:

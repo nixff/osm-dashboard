@@ -45,6 +45,7 @@ limitations under the License.
       <ng-container matColumnDef="statusicon">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let meshconfig">
+					<mat-spinner [diameter]="20" *ngIf="meshconfig.status.bootstrap == 'pending' || meshconfig.status.controller == 'pending' || meshconfig.status.injector == 'pending'"></mat-spinner>
           <mat-icon [ngClass]="getStatus(meshconfig).iconClass"
                     [matTooltip]="getStatus(meshconfig).iconTooltip">
             {{ getStatus(meshconfig).iconName }}
@@ -62,7 +63,7 @@ limitations under the License.
                   class="col-stretch-xl">
           <a [routerLink]="getDetailsHref(meshconfig.objectMeta.name, meshconfig.objectMeta.namespace)"
              queryParamsHandling="preserve">
-            {{ meshconfig.objectMeta.name }}
+            {{ meshconfig.meshName }}
           </a>
         </mat-cell>
       </ng-container>
@@ -76,13 +77,44 @@ limitations under the License.
                   class="col-stretch-l col-min-90">{{ meshconfig.objectMeta.namespace }}</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="labels">
+      <ng-container matColumnDef="meshConfig">
         <mat-header-cell *matHeaderCellDef
+                         mat-sort-header
+                         disableClear="true"
                          class="col-stretch-xl"
-                         i18n>Labels</mat-header-cell>
+                         i18n>Mesh Config</mat-header-cell>
         <mat-cell *matCellDef="let meshconfig"
                   class="col-stretch-xl">
-          <kd-chips [map]="meshconfig.objectMeta.labels"></kd-chips>
+          <a [routerLink]="getConfigHref(meshconfig?.objectMeta.name, meshconfig?.objectMeta.namespace)" [queryParams]="{namespace:meshconfig?.objectMeta.namespace}">
+            {{ meshconfig.objectMeta.name }}
+          </a>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="status.bootstrap">
+        <mat-header-cell *matHeaderCellDef
+                         class="col-stretch-xl"
+                         i18n>Bootstrap</mat-header-cell>
+        <mat-cell *matCellDef="let meshconfig"
+                  class="col-stretch-xl">
+          <kd-chips [map]="[meshconfig.status.bootstrap]"></kd-chips>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="status.controller">
+        <mat-header-cell *matHeaderCellDef
+                         class="col-stretch-xl"
+                         i18n>Controller</mat-header-cell>
+        <mat-cell *matCellDef="let meshconfig"
+                  class="col-stretch-xl">
+          <kd-chips [map]="[meshconfig.status.controller]"></kd-chips>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="status.injector">
+        <mat-header-cell *matHeaderCellDef
+                         class="col-stretch-xl"
+                         i18n>Injector</mat-header-cell>
+        <mat-cell *matCellDef="let meshconfig"
+                  class="col-stretch-xl">
+          <kd-chips [map]="[meshconfig.status.injector]"></kd-chips>
         </mat-cell>
       </ng-container>
 

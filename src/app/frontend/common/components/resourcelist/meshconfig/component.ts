@@ -27,11 +27,11 @@ import {Status, StatusClass} from '../statuses';
 import {VerberService} from '@common/services/global/verber';
 
 @Component({
-  selector: 'kd-meshconfig-list',
+  selector: 'kd-mesh-list',
   templateUrl: './template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MeshConfigListComponent extends ResourceListWithStatuses<MeshconfigList, Meshconfig> {
+export class MeshListComponent extends ResourceListWithStatuses<MeshconfigList, Meshconfig> {
   @Input() endpoint = EndpointManager.resource(Resource.meshconfig, true).list();
 
   constructor(
@@ -40,7 +40,7 @@ export class MeshConfigListComponent extends ResourceListWithStatuses<Meshconfig
     cdr: ChangeDetectorRef,
     private readonly verber_: VerberService
   ) {
-    super('meshconfig', notifications, cdr);
+    super('mesh', notifications, cdr);
     this.id = ListIdentifier.meshConfig;
     this.groupId = ListGroupIdentifier.osm;
 
@@ -76,9 +76,12 @@ export class MeshConfigListComponent extends ResourceListWithStatuses<Meshconfig
   }
 
   getDisplayColumns(): string[] {
-    return ['statusicon', 'name', 'labels', 'created'];
+    return ['statusicon', 'name', 'meshConfig', 'status.bootstrap', 'status.controller', 'status.injector', 'created'];
   }
 
+	getConfigHref(name: string, namespace: string): string {
+	  return `/mesh/config/${namespace}/${name}`;
+	}
   onInstall(): void {
     this.verber_.showInstallDialog('',null,null);
   }

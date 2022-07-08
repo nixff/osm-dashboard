@@ -127,13 +127,13 @@ export class DialogFormComponent extends ICanDeactivate implements OnInit, OnDes
 			enforceSingleMesh: [true],
 			atomic: [false],
 			tracingEnabled: [meshOptions.osm.tracing.enable],
-			tracingDeploy: [true],
+			tracingDeploy: [meshOptions.osm.deployJaeger],
 			tracingAddress: [meshOptions.osm.tracing.address],
 			tracingPort: [meshOptions.osm.tracing.port],
 			tracingEndpoint: [meshOptions.osm.tracing.endpoint],
 			metricsDeploy: [meshOptions.osm.deployPrometheus],
 			metricsPort: [meshOptions.osm.prometheus.port],
-			metricsAddress: [meshOptions.osm.prometheus.image],
+			metricsAddress: [meshOptions.osm.prometheus.address],
 			timeout: [300],
     });
     this.labelArr = [new DeployLabel(APP_LABEL_KEY, '', false), new DeployLabel()];
@@ -245,13 +245,15 @@ export class DialogFormComponent extends ICanDeactivate implements OnInit, OnDes
 		} else {
 			_options = this.text;
 		}
+		_options.osm.deployJaeger = this.form.get('tracingDeploy').value;
 		_options.osm.tracing.enable = this.form.get('tracingEnabled').value;
 		_options.osm.tracing.address = this.form.get('tracingAddress').value;
 		_options.osm.tracing.port = this.form.get('tracingPort').value;
 		_options.osm.tracing.endpoint = this.form.get('tracingEndpoint').value;
 		_options.osm.deployPrometheus = this.form.get('metricsDeploy').value;
+		_options.osm.deployGrafana = this.form.get('metricsDeploy').value;
 		_options.osm.prometheus.port = this.form.get('metricsPort').value;
-		_options.osm.prometheus.image = this.form.get('metricsAddress').value;
+		_options.osm.prometheus.address = this.form.get('metricsAddress').value;
 		
     if (this.selectedMode === EditorMode.YAML) {
       this.text = toYaml(_options);
@@ -268,12 +270,13 @@ export class DialogFormComponent extends ICanDeactivate implements OnInit, OnDes
 			_options = this.text;
 		}
 		this.form.get('tracingEnabled').setValue(_options.osm.tracing.enable, {emitEvent: false});
+		this.form.get('tracingDeploy').setValue(_options.osm.deployJaeger, {emitEvent: false});
 		this.form.get('tracingAddress').setValue(_options.osm.tracing.address, {emitEvent: false});
 		this.form.get('tracingPort').setValue(_options.osm.tracing.port, {emitEvent: false});
 		this.form.get('tracingEndpoint').setValue(_options.osm.tracing.endpoint, {emitEvent: false});
 		this.form.get('metricsDeploy').setValue(_options.osm.deployPrometheus, {emitEvent: false});
 		this.form.get('metricsPort').setValue(_options.osm.prometheus.port, {emitEvent: false});
-		this.form.get('metricsAddress').setValue(_options.osm.prometheus.image, {emitEvent: false});
+		this.form.get('metricsAddress').setValue(_options.osm.prometheus.address, {emitEvent: false});
 	}
 
   private updateText(): void {

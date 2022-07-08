@@ -94,7 +94,7 @@ import {RoleListComponent} from './resourcelist/role/component';
 import {RoleBindingListComponent} from './resourcelist/rolebinding/component';
 import {SecretListComponent} from './resourcelist/secret/component';
 import {ServiceListComponent} from './resourcelist/service/component';
-import {MeshConfigListComponent} from './resourcelist/meshconfig/component';
+import {MeshListComponent} from './resourcelist/meshconfig/component';
 import {ServiceAccountListComponent} from './resourcelist/serviceaccount/component';
 import {StatefulSetListComponent} from './resourcelist/statefulset/component';
 import {StorageClassListComponent} from './resourcelist/storageclass/component';
@@ -106,6 +106,7 @@ import {TextInputComponent} from './textinput/component';
 import {UploadFileComponent} from './uploadfile/component';
 import {VolumeMountComponent} from './volumemount/component';
 import {WorkloadStatusComponent} from './workloadstatus/component';
+import {MeshStatusComponent} from './meshstatus/component';
 import {ZeroStateComponent} from './zerostate/component';
 
 const components = [
@@ -183,7 +184,7 @@ const components = [
   StatefulSetListComponent,
   SecretListComponent,
   ServiceListComponent,
-	MeshConfigListComponent,
+	MeshListComponent,
   ServiceAccountListComponent,
   CpuSparklineComponent,
   MemorySparklineComponent,
@@ -197,6 +198,7 @@ const components = [
   RoleListComponent,
   RoleBindingListComponent,
   SubjectListComponent,
+	MeshStatusComponent,
   VolumeMountComponent,
 ];
 

@@ -137,7 +137,11 @@ export class MenuComponent implements ActionColumn {
     this.verber_.showDeleteDialog(this.typeMeta.kind, this.typeMeta, this.objectMeta);
   }
 	
-  onUninstall(): void {
-    this.verber_.showUninstallDialog(this.typeMeta.kind, this.typeMeta, this.objectMeta);
+	onUninstall(): void {
+	  this.verber_.showUninstallDialog(this.typeMeta.kind, this.typeMeta, this.objectMeta);
+	}
+	
+  onUnbindOSM(): void {
+    this.verber_.doUnbindOSM(this.typeMeta.kind, this.typeMeta, this.objectMeta);
   }
 }

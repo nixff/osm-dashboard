@@ -29,11 +29,11 @@ export const emptyResourcesRatio: ResourcesRatio = {
 };
 
 @Component({
-  selector: 'kd-workload-statuses',
+  selector: 'kd-mesh-statuses',
   templateUrl: './template.html',
   styleUrls: ['./style.scss'],
 })
-export class WorkloadStatusComponent {
+export class MeshStatusComponent {
   @Input() resourcesRatio = emptyResourcesRatio;
   colors: string[] = [];
   animations = false;

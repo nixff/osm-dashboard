@@ -17,7 +17,7 @@ limitations under the License.
 <mat-chip-list>
   <ng-container *ngFor="let key of keys; let i = index">
     <mat-chip *ngIf="isVisible(i)"
-              [disableRipple]="true" (removed)="remove(key)">
+              [disableRipple]="true" (removed)="remove(key, i)">
       <ng-container *ngIf="isSerializedRef(map[key])">
         <span>{{ key }}:&nbsp;</span>
         <a class="kd-clickable"
@@ -64,7 +64,7 @@ limitations under the License.
 	<mat-chip *ngIf="edit && placeholder && keys.length === 0" style="opacity: 0.5;color: #999;" [disableRipple]="true" >
 		{{placeholder}}
 	</mat-chip>
-	<input *ngIf="edit" matInput placeholder="+"
+	<input *ngIf="edit" matInput [type]="type" placeholder="+"
 						 [matChipInputFor]="chipList"
 						 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 						 [matChipInputAddOnBlur]="addOnBlur"

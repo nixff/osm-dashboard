@@ -39,6 +39,7 @@ import {NamespaceChangeDialog} from './changedialog/dialog';
 })
 export class NamespaceSelectorComponent implements OnInit, OnDestroy {
   namespaces: string[] = [];
+	namespaceMap: any = {};
   selectNamespaceInput = '';
   allNamespacesKey: string;
   selectedNamespace: string;
@@ -172,7 +173,11 @@ export class NamespaceSelectorComponent implements OnInit, OnDestroy {
         namespaceList => {
           this.usingFallbackNamespaces = false;
           this.namespaces = namespaceList.namespaces.map(n => n.objectMeta.name);
-
+					this.namespaceMap = {};
+					namespaceList.namespaces.forEach((n) => {
+						this.namespaceMap[n.objectMeta.name] = n;
+					});
+					
           if (!this.namespaces || this.namespaces.length === 0) {
             this.usingFallbackNamespaces = true;
             this.namespaces = this.settingsService_.getNamespaceFallbackList();

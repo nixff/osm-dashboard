@@ -160,6 +160,11 @@ export class VerberService {
       .subscribe(_ => this.onTrigger.emit(true), this.handleErrorResponse_.bind(this));
   }
 
+	doUnbindOSM(displayName: string, typeMeta: TypeMeta, objectMeta: ObjectMeta): void {
+    this.getDialogConfig_(displayName, typeMeta, objectMeta);
+		
+	}
+	
   getDialogConfig_(displayName: string, typeMeta: TypeMeta, objectMeta: ObjectMeta): MatDialogConfig<ResourceMeta> {
     return {width: '900px', data: {displayName, typeMeta, objectMeta}};
   }

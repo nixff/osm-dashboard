@@ -37,6 +37,7 @@ limitations under the License.
       <mat-option *ngFor="let namespace of namespaces | kdFilterBy: selectNamespaceInput"
                   [value]="namespace">
         {{ namespace }}
+				<mat-chip style="margin-left: 15px;" *ngIf="namespaceMap[namespace]?.objectMeta.labels['openservicemesh.io/monitored-by']">{{namespaceMap[namespace].objectMeta.labels['openservicemesh.io/monitored-by']}}</mat-chip>
       </mat-option>
     </mat-optgroup>
     <mat-option class="kd-hidden"
