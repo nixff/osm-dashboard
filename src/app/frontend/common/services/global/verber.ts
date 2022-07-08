@@ -164,8 +164,14 @@ export class VerberService {
 		const url = RawResource.getUrl(typeMeta, objectMeta);
 		this.http_.get(url, {headers: this.getHttpHeaders_(), responseType: 'text'})
 		.subscribe(_result => {
-			const result = JSON.parse(_result)
-			delete result.metadata.labels['openservicemesh.io/monitored-by'];
+			const result = JSON.parse(_result);
+			if(result.metadata.labels){
+				delete result.metadata.labels['openservicemesh.io/monitored-by'];
+			}
+			if(result.metadata.annotations){
+				delete result.metadata.annotations['openservicemesh.io/metrics'];
+				delete result.metadata.annotations['openservicemesh.io/sidecar-injection'];
+			}
 			this.http_.put(url, result, {headers: this.getHttpHeaders_(), responseType: 'text'})
 			.subscribe(_ => {
 			}, this.handleErrorResponse_.bind(this));
