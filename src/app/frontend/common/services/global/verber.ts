@@ -160,9 +160,16 @@ export class VerberService {
       .subscribe(_ => this.onTrigger.emit(true), this.handleErrorResponse_.bind(this));
   }
 
-	doUnbindOSM(displayName: string, typeMeta: TypeMeta, objectMeta: ObjectMeta): void {
-    this.getDialogConfig_(displayName, typeMeta, objectMeta);
-		
+	doUnbindOSM(typeMeta: TypeMeta, objectMeta: ObjectMeta): void {
+		const url = RawResource.getUrl(typeMeta, objectMeta);
+		this.http_.get(url, {headers: this.getHttpHeaders_(), responseType: 'text'})
+		.subscribe(_result => {
+			const result = JSON.parse(_result)
+			delete result.metadata.labels['openservicemesh.io/monitored-by'];
+			this.http_.put(url, result, {headers: this.getHttpHeaders_(), responseType: 'text'})
+			.subscribe(_ => {
+			}, this.handleErrorResponse_.bind(this));
+		});
 	}
 	
   getDialogConfig_(displayName: string, typeMeta: TypeMeta, objectMeta: ObjectMeta): MatDialogConfig<ResourceMeta> {

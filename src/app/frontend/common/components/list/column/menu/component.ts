@@ -142,6 +142,6 @@ export class MenuComponent implements ActionColumn {
 	}
 	
   onUnbindOSM(): void {
-    this.verber_.doUnbindOSM(this.typeMeta.kind, this.typeMeta, this.objectMeta);
+    this.verber_.doUnbindOSM(this.typeMeta, this.objectMeta);
   }
 }
