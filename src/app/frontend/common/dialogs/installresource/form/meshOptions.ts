@@ -20,7 +20,7 @@ export const meshOptions:any = {
 		"controlPlaneTolerations":[],
 		"controllerLogLevel":"info",
 		"curlImage":"curlimages/curl",
-		"deployGrafana":false,
+		"deployGrafana":true,
 		"deployJaeger":false,
 		"deployPrometheus":true,
 		"enableDebugServer":false,
@@ -125,6 +125,7 @@ export const meshOptions:any = {
 		"outboundIPRangeInclusionList":[],
 		"outboundPortExclusionList":[],
 		"prometheus":{
+			"address":"",
 			"image":"prom/prometheus:v2.18.1",
 			"port":7070,
 			"resources":{"limits":{"cpu":"1","memory":"2G"},"requests":{"cpu":"0.5","memory":"512M"}},
