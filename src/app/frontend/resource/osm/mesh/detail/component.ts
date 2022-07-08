@@ -117,7 +117,15 @@ export class MeshDetailComponent extends GroupedResourceList implements OnInit, 
 		this.http_.get(url, {headers: this.getHttpHeaders_(), responseType: 'text'})
 		.subscribe(_result => {
 			const result = JSON.parse(_result)
+			if(!result.metadata.labels){
+				result.metadata.labels = {};
+			}
 			result.metadata.labels['openservicemesh.io/monitored-by'] = this.meshconfig.meshName;
+			if(!result.metadata.annotations){
+				result.metadata.annotations = {};
+			}
+			result.metadata.annotations['openservicemesh.io/metrics'] = "enabled";
+			result.metadata.annotations['openservicemesh.io/sidecar-injection'] = "enabled";
 			this.http_.put(url, result, {headers: this.getHttpHeaders_(), responseType: 'text'})
 			.subscribe(_ => {
 				this.loadNamespace();
