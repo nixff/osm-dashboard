@@ -3,7 +3,9 @@ package osmcli
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"time"
 
@@ -64,6 +66,17 @@ func debug(format string, v ...interface{}) {
 }
 
 func (self OsmCliHandler) handleOsmInstall(request *restful.Request, response *restful.Response) {
+	content := "{}"
+	byteArr, err := io.ReadAll(request.Request.Body)
+	if err == nil {
+		content = string(byteArr)
+	}
+	// Restore request body so we can read it again in regular request handlers
+	request.Request.Body = io.NopCloser(bytes.NewReader(byteArr))
+
+	param := map[string]interface{}{}
+	err = json.Unmarshal(byteArr, &param)
+
 	osmInstallSpec := NewOsmInstallSpec()
 	if err := request.ReadEntity(&osmInstallSpec); err != nil {
 		backenderrors.HandleInternalError(response, err)
@@ -82,7 +95,7 @@ func (self OsmCliHandler) handleOsmInstall(request *restful.Request, response *r
 	installClient.Atomic = osmInstallSpec.Atomic
 	installClient.Timeout = time.Duration(osmInstallSpec.Timeout) * time.Minute
 
-	values := map[string]interface{}{}
+	/**
 	osm := map[string]interface{}{}
 	values["osm"] = osm
 	osm["deployGrafana"] = true
@@ -104,6 +117,7 @@ func (self OsmCliHandler) handleOsmInstall(request *restful.Request, response *r
 	osm["deployPrometheus"] = osmInstallSpec.Options.Osm.DeployPrometheus
 	//prometheus["image"] = osmInstallSpec.Osm.Prometheus.Image
 	//prometheus["port"] = osmInstallSpec.Osm.Prometheus.Port
+	**/
 
 	chartRequested, err := loader.LoadArchive(bytes.NewReader(chartTGZSource))
 	if err != nil {
@@ -116,7 +130,12 @@ func (self OsmCliHandler) handleOsmInstall(request *restful.Request, response *r
 		backenderrors.HandleInternalError(response, err)
 		return
 	}
-
+	values := param["options"].(map[string]interface{})
+	values["osm"].(map[string]interface{})["osmNamespace"] = param["namespace"]
+	values["osm"].(map[string]interface{})["meshName"] = param["name"]
+	values["config"] = content
+	// TODO
+	delete(values["osm"].(map[string]interface{})["prometheus"].(map[string]interface{}), "address")
 	if _, err = installClient.Run(chartRequested, values); err != nil {
 		if !settings.Verbose() {
 			backenderrors.HandleInternalError(response, err)
