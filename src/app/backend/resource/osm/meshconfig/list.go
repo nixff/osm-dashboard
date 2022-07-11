@@ -2,6 +2,7 @@ package meshconfig
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	osmconfigv1alph2 "github.com/openservicemesh/osm/pkg/apis/config/v1alpha2"
@@ -25,6 +26,7 @@ type MeshConfig struct {
 	Spec       osmconfigv1alph2.MeshConfigSpec `json:"spec,omitempty"`
 	MeshStatus MeshStatus                      `json:"status"`
 	MeshName   string                          `json:"meshName"`
+	Option     string                          `json:"option"`
 }
 
 // MeshConfigList contains a list of MeshConfigs in the cluster.
@@ -96,12 +98,14 @@ func toMeshConfig(client client.Interface, meshConfig *osmconfigv1alph2.MeshConf
 	if err == nil {
 		meshName = configMap.ObjectMeta.Labels["meshName"]
 	}
+	fmt.Println(configMap.Data["osm-mesh-config.json"])
 	return MeshConfig{
 		ObjectMeta: api.NewObjectMeta(meshConfig.ObjectMeta),
 		TypeMeta:   api.NewTypeMeta(api.ResourceKindMeshConfig),
 		Spec:       meshConfig.Spec,
 		MeshStatus: meshStatus,
 		MeshName:   meshName,
+		Option:     configMap.Data["osm-mesh-config.json"],
 	}
 }
 func GetPodStatus(pods []podApi.Pod) string {
