@@ -13,6 +13,7 @@ import (
 
 	"github.com/pkg/errors"
 	"golang.org/x/net/xsrftoken"
+	v1 "k8s.io/api/core/v1"
 
 	cli "github.com/openservicemesh/osm/pkg/cli"
 
@@ -133,9 +134,22 @@ func (self OsmCliHandler) handleOsmInstall(request *restful.Request, response *r
 	values := param["options"].(map[string]interface{})
 	values["osm"].(map[string]interface{})["osmNamespace"] = param["namespace"]
 	values["osm"].(map[string]interface{})["meshName"] = param["name"]
-	values["config"] = content
 	// TODO
 	delete(values["osm"].(map[string]interface{})["prometheus"].(map[string]interface{}), "address")
+
+	osmCofig := v1.ConfigMap{}
+	osmCofig.ObjectMeta = metav1.ObjectMeta{}
+	osmCofig.ObjectMeta.Labels = map[string]string{}
+	osmCofig.ObjectMeta.Name = "osm-mesh-config"
+	osmCofig.ObjectMeta.Labels["meshName"] = param["name"].(string)
+	osmCofig.Data = map[string]string{}
+	osmCofig.Data["osm-mesh-config.json"] = content
+	osmConfigResult, err := k8sClient.CoreV1().ConfigMaps(settings.Namespace()).Create(context.Background(), &osmCofig, metav1.CreateOptions{})
+	if err != nil {
+		fmt.Println(err, osmConfigResult)
+		k8sClient.CoreV1().ConfigMaps(settings.Namespace()).Update(context.Background(), &osmCofig, metav1.UpdateOptions{})
+	}
+
 	if _, err = installClient.Run(chartRequested, values); err != nil {
 		if !settings.Verbose() {
 			backenderrors.HandleInternalError(response, err)
