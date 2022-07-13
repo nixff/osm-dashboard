@@ -716,6 +716,10 @@ func CreateHTTPAPIHandler(iManager integration.IntegrationManager, cManager clie
 		apiV1Ws.GET("/meshconfig/{namespace}/{meshconfig}/tracing/{type}").
 			To(apiHandler.handleTracing).
 			Writes(meshconfig.QueryTracingInfo{}))
+	apiV1Ws.Route(
+		apiV1Ws.GET("/meshconfig/{namespace}/{meshconfig}/tracing/{type}/{id}").
+			To(apiHandler.handleTracing).
+			Writes(meshconfig.QueryTracingInfo{}))
 
 	apiV1Ws.Route(
 		apiV1Ws.GET("/crd").
