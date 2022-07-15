@@ -21,6 +21,7 @@ import {ComponentsModule} from '../components/module';
 import {AlertDialog} from './alert/dialog';
 import {DeleteResourceDialog} from './deleteresource/dialog';
 import {UninstallResourceDialog} from './uninstallresource/dialog';
+import {TraceDetailResourceDialog} from './tracedetailresource/dialog';
 import {InstallResourceDialog} from './installresource/dialog';
 import {LogsDownloadDialog} from './download/dialog';
 import {EditResourceDialog} from './editresource/dialog';
@@ -42,6 +43,7 @@ import {DialogFormModule} from './installresource/form/module';
     RestartResourceDialog,
     ScaleResourceDialog,
     TriggerResourceDialog,
+		TraceDetailResourceDialog,
     ConfirmDialog,
     PreviewDeploymentDialog,
   ],
@@ -54,6 +56,7 @@ import {DialogFormModule} from './installresource/form/module';
     LogsDownloadDialog,
     RestartResourceDialog,
     ScaleResourceDialog,
+		TraceDetailResourceDialog,
     TriggerResourceDialog,
     PreviewDeploymentDialog,
   ],
@@ -65,6 +68,7 @@ import {DialogFormModule} from './installresource/form/module';
 		InstallResourceDialog,
     LogsDownloadDialog,
     RestartResourceDialog,
+		TraceDetailResourceDialog,
     ScaleResourceDialog,
     TriggerResourceDialog,
     PreviewDeploymentDialog,

@@ -43,6 +43,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTreeModule} from '@angular/material/tree';
 import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipModule} from '@angular/material/tooltip';
 import {RouterModule} from '@angular/router';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
@@ -87,7 +88,8 @@ const SHARED_DEPENDENCIES = [
   MatSnackBarModule,
   MatAutocompleteModule,
   MatListModule,
-
+	MatTreeModule,
+	
   // Other 3rd party modules
   FlexLayoutModule,
   RouterModule,

@@ -47,6 +47,7 @@ import {EndpointListComponent} from './endpoint/cardlist/component';
 import {ExternalEndpointComponent} from './endpoint/external/component';
 import {InternalEndpointComponent} from './endpoint/internal/component';
 import {GraphComponent} from './graph/component';
+import {BubbleComponent} from './bubble/component';
 import {GraphCardComponent} from './graphcard/component';
 import {GraphMetricsComponent} from './graphmetrics/component';
 import {HiddenPropertyComponent} from './hiddenproperty/component';
@@ -95,6 +96,7 @@ import {RoleBindingListComponent} from './resourcelist/rolebinding/component';
 import {SecretListComponent} from './resourcelist/secret/component';
 import {ServiceListComponent} from './resourcelist/service/component';
 import {MeshListComponent} from './resourcelist/meshconfig/component';
+import {TraceListComponent} from './resourcelist/trace/component';
 import {ServiceAccountListComponent} from './resourcelist/serviceaccount/component';
 import {StatefulSetListComponent} from './resourcelist/statefulset/component';
 import {StorageClassListComponent} from './resourcelist/storageclass/component';
@@ -145,6 +147,7 @@ const components = [
   ExternalEndpointComponent,
   EventListComponent,
   GraphComponent,
+  BubbleComponent,
   GraphCardComponent,
   GraphMetricsComponent,
   HiddenPropertyComponent,
@@ -200,6 +203,7 @@ const components = [
   SubjectListComponent,
 	MeshStatusComponent,
   VolumeMountComponent,
+	TraceListComponent,
 ];
 
 @NgModule({

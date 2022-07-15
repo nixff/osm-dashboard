@@ -35,6 +35,7 @@ import {KdStateService} from './state';
 import {ThemeService} from './theme';
 import {TitleService} from './title';
 import {VerberService} from './verber';
+import {JaegerService} from './jaeger';
 import {PluginsConfigService} from './plugin';
 import {PluginLoaderService} from '../pluginloader/pluginloader.service';
 import {ClientPluginLoaderService} from '../pluginloader/clientloader.service';
@@ -57,6 +58,7 @@ import {PinnerService} from './pinner';
     NamespaceService,
     ActionbarService,
     VerberService,
+		JaegerService,
     PinnerService,
     HistoryService,
     LogService,

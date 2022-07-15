@@ -28,6 +28,8 @@ import {EditResourceDialog} from '../../dialogs/editresource/dialog';
 import {RestartResourceDialog} from '../../dialogs/restartresource/dialog';
 import {ScaleResourceDialog} from '../../dialogs/scaleresource/dialog';
 import {TriggerResourceDialog} from '../../dialogs/triggerresource/dialog';
+import {TraceDetailResourceDialog} from '../../dialogs/tracedetailresource/dialog';
+
 import {RawResource} from '../../resources/rawresource';
 
 import {ResourceMeta} from './actionbar';
@@ -97,6 +99,11 @@ export class VerberService {
       .subscribe(_ => this.onUninstall.emit(true), this.handleErrorResponse_.bind(this));
   }
 
+  showTraceDetailDialog(trace: any): void {
+    this.dialog_
+      .open(TraceDetailResourceDialog, {width: '900px', data: {trace}});;
+  }
+	
   showEditDialog(displayName: string, typeMeta: TypeMeta, objectMeta: ObjectMeta): void {
     const dialogConfig = this.getDialogConfig_(displayName, typeMeta, objectMeta);
     this.dialog_

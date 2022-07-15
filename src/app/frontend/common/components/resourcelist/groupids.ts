@@ -34,6 +34,7 @@ export enum ListIdentifier {
   ingress = 'ingressList',
   service = 'serviceList',
 	meshConfig = 'meshConfigList',
+	trace = 'traceList',
   serviceAccount = 'serviceAccountList',
   networkPolicy = 'networkPolicyList',
   configMap = 'configMapList',

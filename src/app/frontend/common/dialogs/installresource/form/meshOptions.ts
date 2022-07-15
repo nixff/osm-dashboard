@@ -102,7 +102,6 @@ export const meshOptions:any = {
 			"webhookTimeoutSeconds":20,
 		},
 		"maxDataPlaneConnections":0,
-		"meshName":"osm",
 		"multicluster":{"gatewayLogLevel":"error"},
 		"nodeSelector":{
 			"arch":"amd64",
@@ -120,7 +119,6 @@ export const meshOptions:any = {
 			"replicaCount":1,
 			"resource":{"limits":{"cpu":"1.5","memory":"1G"},"requests":{"cpu":"0.5","memory":"128M"}},
 		},
-		"osmNamespace":"",
 		"outboundIPRangeExclusionList":[],
 		"outboundIPRangeInclusionList":[],
 		"outboundPortExclusionList":[],

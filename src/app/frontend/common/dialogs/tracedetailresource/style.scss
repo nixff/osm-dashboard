@@ -1,0 +1,75 @@
+// Copyright 2017 The Kubernetes Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+@use '../../../variables' as *;
+
+.progress-bg{
+	width: 400px;position: absolute;right: 0;background-color: #f5f5f5;display: inline-block;
+}
+.progress-item{
+	height: 20px;background-color: #00C752;display: block;
+	position: relative;
+}
+.progress-item::before{
+	content: "";
+	width: 2px;
+	background: #ddd;
+	position: absolute;
+	left: -2px;
+	top: -5px;
+	height: 30px;
+}
+.progress-item::after{
+	content: "";
+	width: 3px;
+	background: #ddd;
+	position: absolute;
+	right: -2px;
+	top: -5px;
+	height: 30px;
+}
+.progress-head{
+	display: flex;
+	width: 400px;
+	position: absolute;right: 0;
+	height: 30px;
+	font-size: 8pt;
+	color: #999;
+}
+.progress-min{
+	flex: 1;
+	text-align: left;
+	padding: 5px;
+	height: 20px;
+}
+.progress-max{
+	text-align: right;
+	padding: 5px;
+	height: 20px;
+	flex: 1;
+}
+.progress-min .chip{
+	position: relative;
+	left: -10px;
+	top: -5px;
+	font-size: 8pt;
+	color: #999;
+}
+.progress-max .chip{
+	position: relative;
+	left: 10px;
+	top: -5px;
+	font-size: 8pt;
+	color: #999;
+}
