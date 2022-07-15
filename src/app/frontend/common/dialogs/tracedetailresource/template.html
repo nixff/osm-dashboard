@@ -1,0 +1,61 @@
+<!--
+Copyright 2017 The Kubernetes Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<h2 mat-dialog-title
+    i18n>Spans Progress</h2>
+<mat-dialog-content class="kd-dialog-text">
+  <ng-container>
+		
+		<div style="position: relative;width: 100%;margin-bottom: 20px;">
+				<div class="progress-head">
+					<div class="progress-min">
+						<mat-chip class="chip">{{minTimeLabel}}</mat-chip>
+					</div>
+					<div class="progress-max">
+						<mat-chip class="chip">{{maxTimeLabel}}</mat-chip>
+					</div>
+				</div>
+		</div>
+		<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+			<!-- This is the tree node template for leaf nodes -->
+			<mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+				<!-- use a disabled button to provide padding for tree leaf -->
+				<button mat-icon-button disabled></button>
+				<div style="position: relative;width: 100%;">
+					{{node.name}} ({{node.duration}}ms)
+					<div class="progress-bg" >
+						<div class="progress-item" [style]="'width:'+node.width+'%;marginLeft:'+node.start+'%;'"></div>
+					</div>
+				</div>
+			</mat-tree-node>
+			<!-- This is the tree node template for expandable nodes -->
+			<mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+				<button mat-icon-button matTreeNodeToggle
+								[attr.aria-label]="'Toggle ' + node.name">
+					<mat-icon class="mat-icon-rtl-mirror">
+						{{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+					</mat-icon>
+				</button>
+				<div style="position: relative;width: 100%;">
+					{{node.name}} ({{node.duration}}ms)
+					<div class="progress-bg">
+						<div class="progress-item" [style]="'width:'+node.width+'%;marginLeft:'+node.start+'%;'"></div>
+					</div>
+				</div>
+			</mat-tree-node>
+		</mat-tree>
+  </ng-container>
+</mat-dialog-content>

@@ -209,6 +209,12 @@ export interface MeshconfigList extends ResourceList {
   meshconfigs: Meshconfig[];
 }
 
+export interface Trace extends Resource {
+}
+export interface TraceList extends ResourceList {
+  traces: Trace[];
+}
+
 export interface StatefulSetList extends ResourceList {
   cumulativeMetrics: Metric[] | null;
   statefulSets: StatefulSet[];

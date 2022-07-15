@@ -42,6 +42,7 @@ export class GroupedResourceList {
     [ListGroupIdentifier.workloads]: {},
     [ListGroupIdentifier.discovery]: {},
     [ListGroupIdentifier.config]: {},
+    [ListGroupIdentifier.osm]: {},
   };
 
   shouldShowZeroState(): boolean {

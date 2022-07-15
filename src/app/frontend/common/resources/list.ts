@@ -41,6 +41,7 @@ import {GlobalServicesModule} from '../services/global/module';
 import {NamespaceService} from '../services/global/namespace';
 import {NotificationsService} from '../services/global/notifications';
 import {ParamsService} from '../services/global/params';
+import {JaegerService} from '../services/global/jaeger';
 import {KdStateService} from '../services/global/state';
 
 enum SortableColumn {
@@ -72,6 +73,7 @@ export abstract class ResourceListBase<T extends ResourceList, R extends Resourc
   private loaded_ = false;
   private readonly dynamicColumns_: ColumnWhenCondition[] = [];
   private paramsService_: ParamsService;
+  private jaegerService_: JaegerService;
   private router_: Router;
   // Data select properties
   @ViewChild(MatSort, {static: true}) private readonly matSort_: MatSort;
@@ -88,6 +90,7 @@ export abstract class ResourceListBase<T extends ResourceList, R extends Resourc
     this.kdState_ = GlobalServicesModule.injector.get(KdStateService);
     this.namespaceService_ = GlobalServicesModule.injector.get(NamespaceService);
     this.paramsService_ = GlobalServicesModule.injector.get(ParamsService);
+    this.jaegerService_ = GlobalServicesModule.injector.get(JaegerService);
     this.router_ = GlobalServicesModule.injector.get(Router);
     this.initStateName_(stateName);
   }
@@ -114,6 +117,11 @@ export abstract class ResourceListBase<T extends ResourceList, R extends Resourc
       this.isLoading = true;
       this.listUpdates_.next();
     });
+		
+    this.jaegerService_.onJaegerChange.subscribe(() => {
+      this.isLoading = true;
+      this.listUpdates_.next();
+    });
 
     this.getObservableWithDataSelect_()
       .pipe(startWith({}))
@@ -121,12 +129,21 @@ export abstract class ResourceListBase<T extends ResourceList, R extends Resourc
       .pipe(switchMap(() => this.getResourceObservable(this.getDataSelectParams_())))
       .pipe(takeUntil(this.unsubscribe_))
       .subscribe((data: T) => {
-        this.notifications_.pushErrors(data.errors);
-        this.totalItems = data.listMeta.totalItems;
-        this.data_.data = this.map(data);
-        this.isLoading = false;
-        this.loaded_ = true;
-        this.onListChange_(data);
+				if(data.errors){
+					this.notifications_.pushErrors(data.errors);
+				}
+				this.isLoading = false;
+				this.loaded_ = true;
+				if(typeof(data) == 'string'){
+					const _data = JSON.parse(data).data;
+					this.totalItems = _data.length;
+					this.data_.data = this.map(_data);
+					this.onListChange_(_data);
+				}else{
+					this.totalItems = data.listMeta.totalItems;
+					this.data_.data = this.map(data);
+					this.onListChange_(data);
+				}
 
         if (this.cdr_) {
           this.cdr_.markForCheck();
@@ -353,7 +370,6 @@ export abstract class ResourceListBase<T extends ResourceList, R extends Resourc
     if (this.cardFilter_) {
       emitValue.filtered = this.filtered_();
     }
-
     this.onChange.emit(emitValue);
   }
 }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ChangeDetectorRef} from '@angular/core';
 import {Router,NavigationExtras,ActivatedRoute} from '@angular/router';
 import {ActionbarService, ResourceMeta} from '@common/services/global/actionbar';
 import {NotificationsService} from '@common/services/global/notifications';
@@ -62,7 +62,8 @@ export class MeshDetailComponent extends GroupedResourceList implements OnInit, 
     private readonly service_: NamespacedResourceService<MeshconfigDetail>,
     private readonly actionbar_: ActionbarService,
     private readonly activatedRoute_: ActivatedRoute,
-    private readonly notifications_: NotificationsService
+    private readonly notifications_: NotificationsService,
+    private readonly cdr_: ChangeDetectorRef
   ) {
 		super();
 	}
@@ -84,6 +85,7 @@ export class MeshDetailComponent extends GroupedResourceList implements OnInit, 
         this.notifications_.pushErrors(d.errors);
         this.actionbar_.onInit.emit(new ResourceMeta('Meshconfig', d.objectMeta, d.typeMeta));
         this.isInitialized = true;
+				this.cdr_.markForCheck();
       });
 		this.loadNamespace();
   }
