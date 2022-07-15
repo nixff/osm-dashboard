@@ -298,7 +298,6 @@ func GetMeshConfigListChannel(osmConfigClient osmconfigclientset.Interface, nsQu
 	}
 
 	go func() {
-		println("meshconfig goroutine")
 
 		list, err := osmConfigClient.ConfigV1alpha2().MeshConfigs(nsQuery.ToRequestParam()).List(context.TODO(), api.ListEverything)
 		var filteredItems []osmconfigv1alph2.MeshConfig

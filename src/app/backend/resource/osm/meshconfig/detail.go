@@ -20,6 +20,7 @@ type MeshConfigDetail struct {
 	// +optional
 	Spec     osmconfigv1alph2.MeshConfigSpec `json:"spec,omitempty"`
 	MeshName string                          `json:"meshName"`
+	Option   string                          `json:"option"`
 }
 
 // GetMeshConfigDetail returns detailed information about an meshconfig
@@ -46,5 +47,6 @@ func getMeshConfigDetail(meshConfig *osmconfigv1alph2.MeshConfig, client client.
 		TypeMeta:   api.NewTypeMeta(api.ResourceKindMeshConfig),
 		Spec:       meshConfig.Spec,
 		MeshName:   meshName,
+		Option:     configMap.Data["osm-mesh-config.json"],
 	}
 }
