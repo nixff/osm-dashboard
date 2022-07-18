@@ -101,7 +101,7 @@ export class VerberService {
 
   showTraceDetailDialog(trace: any): void {
     this.dialog_
-      .open(TraceDetailResourceDialog, {width: '900px', data: {trace}});;
+      .open(TraceDetailResourceDialog, {width: '80%', data: {trace}});;
   }
 	
   showEditDialog(displayName: string, typeMeta: TypeMeta, objectMeta: ObjectMeta): void {

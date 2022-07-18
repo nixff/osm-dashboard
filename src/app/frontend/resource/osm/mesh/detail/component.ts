@@ -113,6 +113,12 @@ export class MeshDetailComponent extends GroupedResourceList implements OnInit, 
     }
 		this.router.navigate([`/mesh/config/${namespace}/${name}`], queryParams);
 	}
+	goTrace(name: string, namespace: string): void{
+    let queryParams: NavigationExtras = {
+      queryParams:{'namespace':namespace}
+    }
+		this.router.navigate([`/mesh/trace/${namespace}/${name}`], queryParams);
+	}
 	addNamespace(namespace: any): void {
 	
 		const url = RawResource.getUrl(namespace.typeMeta, namespace.objectMeta);

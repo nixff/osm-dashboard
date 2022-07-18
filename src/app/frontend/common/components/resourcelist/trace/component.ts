@@ -35,6 +35,7 @@ export class TraceListComponent extends ResourceListWithStatuses<TraceList, Trac
   @Input() initialized = false;
   @Input() objectMeta:ObjectMeta;
   @Input() typeMeta:TypeMeta;
+  @Input() mode = 'all';
 	
 	traceList:any;
 	endpointMap:any = {};

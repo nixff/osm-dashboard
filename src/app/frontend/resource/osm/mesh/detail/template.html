@@ -127,6 +127,6 @@ limitations under the License.
 <kd-service-list [endpoint]="serviceListEndpoint" (onchange)="onListUpdate($event)" [hideable]="true"></kd-service-list>
 <kd-pod-list [hidden]="true" [endpoint]="podListEndpoint" (onchange)="onListUpdate($event)" [hideable]="true"></kd-pod-list>
 <div *ngIf="meshconfig">
-	<kd-trace-list [initialized]="isInitialized" (onchange)="onListUpdate($event)" [typeMeta]="meshconfig?.typeMeta" [objectMeta]="meshconfig?.objectMeta"></kd-trace-list>
+	<kd-trace-list (click)="goTrace(meshconfig?.objectMeta.name, meshconfig?.objectMeta.namespace)" mode="short" [initialized]="isInitialized" (onchange)="onListUpdate($event)" [typeMeta]="meshconfig?.typeMeta" [objectMeta]="meshconfig?.objectMeta"></kd-trace-list>
 </div>
 <!-- <kd-event-list [endpoint]="eventListEndpoint"></kd-event-list> -->

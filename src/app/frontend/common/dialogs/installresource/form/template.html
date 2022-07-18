@@ -115,17 +115,18 @@ limitations under the License.
 			</kd-help-section> -->
 			<kd-help-section>
 				<mat-slide-toggle formControlName="tracingEnabled" (change)="updateOptionsTab()">
-					Tracing Enabled
+					Enable Tracing
 				</mat-slide-toggle>
 				<kd-user-help>
+					OSM allows optional deployment of Jaegar for tracing and configured via BYO scenario
 				</kd-user-help>
 			</kd-help-section>
 			<kd-help-section [hidden]="!tracingEnabled.value">
 				<mat-slide-toggle formControlName="tracingDeploy" (change)="updateOptionsTab()">
-					Tracing Deploy
+					Bring Your Own (BYO)
 				</mat-slide-toggle>
 				<kd-user-help>
-					If check off this option, You need to set a external tracing address.
+					Steps needed to allow an already running instance of Jaeger to integrate with your OSM control plane. 
 				</kd-user-help>
 			</kd-help-section>
 			<kd-help-section [hidden]="!tracingEnabled.value || tracingDeploy.value">
@@ -163,11 +164,19 @@ limitations under the License.
 				</kd-user-help>
 			</kd-help-section>
 			<kd-help-section>
-				<mat-slide-toggle formControlName="metricsDeploy" (change)="updateOptionsTab()">
-					Metrics Deploy
+				<mat-slide-toggle formControlName="metricsEnabled" (change)="updateOptionsTab()">
+					Enable Metrics
 				</mat-slide-toggle>
 				<kd-user-help>
-					If check off this option, You need to set a external metrics address.
+					OSM can either provision Prometheus and Grafana instances at install time or OSM can connect to an existing Prometheus and/or Grafana instance.
+				</kd-user-help>
+			</kd-help-section>
+			<kd-help-section [hidden]="!metricsEnabled.value">
+				<mat-slide-toggle formControlName="metricsDeploy" (change)="updateOptionsTab()">
+					Bring Your Own (BYO) 
+				</mat-slide-toggle>
+				<kd-user-help>
+					Steps needed to allow an already running Prometheus instance to poll the endpoints of an OSM mesh.
 				</kd-user-help>
 			</kd-help-section>
 			<kd-help-section [hidden]="metricsDeploy.value">
@@ -195,10 +204,10 @@ limitations under the License.
 			</kd-help-section>
 			<kd-help-section>
 				<mat-slide-toggle formControlName="atomic">
-					Automatically
+					Purge Failed Attempts 
 				</mat-slide-toggle>
 				<kd-user-help>
-					Automatically clean up resources if installation fails
+					AutomaticallyCheck this option, if you need to have resources auto cleaned up after failed installation attempt.
 				</kd-user-help>
 			</kd-help-section>
 			<kd-help-section>
@@ -206,7 +215,7 @@ limitations under the License.
 					Enforce Single Mesh
 				</mat-slide-toggle>
 				<kd-user-help>
-					Enforce only deploying one mesh in the cluster
+					Check this option, if you need to enforce only one mesh in the cluster. Once enabled, attempt to install another mesh will trigger error.
 				</kd-user-help>
 			</kd-help-section>
 			<div class="kd-equivalent-block kd-muted kd-bg-card-dark"

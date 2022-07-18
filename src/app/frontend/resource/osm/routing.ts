@@ -21,7 +21,7 @@ export const OSM_ROUTE: Route = {
   path: '',
   component: OsmComponent,
   data: {
-    breadcrumb: BREADCRUMBS.Meshconfig,
+    breadcrumb: BREADCRUMBS.Mesh,
     link: ['', 'osm'],
   },
 };

@@ -123,6 +123,7 @@ export const meshOptions:any = {
 		"outboundIPRangeInclusionList":[],
 		"outboundPortExclusionList":[],
 		"prometheus":{
+			"enable":false,
 			"address":"",
 			"image":"prom/prometheus:v2.18.1",
 			"port":7070,

@@ -19,6 +19,7 @@ import {BREADCRUMBS} from '../../../index.messages';
 
 import {OSM_ROUTE} from '../routing';
 
+import {MeshTraceComponent} from './trace/component';
 import {MeshConfigComponent} from './config/component';
 import {MeshDetailComponent} from './detail/component';
 import {MeshListComponent} from './list/component';
@@ -27,7 +28,7 @@ const MESHCONFIG_LIST_ROUTE: Route = {
   path: '',
   component: MeshListComponent,
   data: {
-    breadcrumb: BREADCRUMBS.Meshconfigs,
+    breadcrumb: BREADCRUMBS.Meshs,
     parent: OSM_ROUTE,
   },
 };
@@ -45,13 +46,21 @@ const MESHCONFIG_CONFIG_ROUTE: Route = {
   path: 'config/:resourceNamespace/:resourceName',
   component: MeshConfigComponent,
   data: {
-    breadcrumb: '{{ resourceName }}',
-    parent: MeshDetailComponent,
+    breadcrumb: BREADCRUMBS.Config,
+    parent: MESHCONFIG_DETAIL_ROUTE,
+  },
+};
+const MESHCONFIG_TRACE_ROUTE: Route = {
+  path: 'trace/:resourceNamespace/:resourceName',
+  component: MeshTraceComponent,
+  data: {
+    breadcrumb: BREADCRUMBS.Trace,
+    parent: MESHCONFIG_DETAIL_ROUTE,
   },
 };
 
 @NgModule({
-  imports: [RouterModule.forChild([MESHCONFIG_LIST_ROUTE, MESHCONFIG_DETAIL_ROUTE, MESHCONFIG_CONFIG_ROUTE, DEFAULT_ACTIONBAR])],
+  imports: [RouterModule.forChild([MESHCONFIG_LIST_ROUTE, MESHCONFIG_DETAIL_ROUTE, MESHCONFIG_CONFIG_ROUTE, MESHCONFIG_TRACE_ROUTE, DEFAULT_ACTIONBAR])],
   exports: [RouterModule],
 })
 export class MeshRoutingModule {}
