@@ -15,6 +15,7 @@
 package handler
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -709,7 +710,7 @@ func CreateHTTPAPIHandler(iManager integration.IntegrationManager, cManager clie
 			Writes(pod.PodList{}))
 
 	apiV1Ws.Route(
-		apiV1Ws.GET("/meshconfig/{namespace}/{meshconfig}/prometheus").
+		apiV1Ws.GET("/meshconfig/{namespace}/{meshconfig}/prometheus/{method}").
 			To(apiHandler.handlePrometheus).
 			Writes(meshconfig.QueryInfo{}))
 	apiV1Ws.Route(
@@ -1276,8 +1277,10 @@ func (apiHandler *APIHandler) handlePrometheus(request *restful.Request, respons
 
 	namespace := request.PathParameter("namespace")
 	meshconfigname := request.PathParameter("meshconfig")
+	method := request.PathParameter("method")
 	query := request.QueryParameter("query")
-	result, err := meshconfig.ProxyPrometheus(osmConfigClient, k8sClient, namespace, meshconfigname, query)
+	fmt.Println("method", method)
+	result, err := meshconfig.ProxyPrometheus(osmConfigClient, k8sClient, namespace, meshconfigname, query, method)
 	if err != nil {
 		errors.HandleInternalError(response, err)
 		return
