@@ -22,7 +22,7 @@ import {ResourceListWithStatuses} from '@common/resources/list';
 import {NamespacedResourceService} from '@common/services/resource/resource';
 import {JaegerService} from '@common/services/global/jaeger';
 import {VerberService} from '@common/services/global/verber';
-import {ObjectMeta, TypeMeta} from '@api/root.api';
+import {ObjectMeta} from '@api/root.api';
 import {ListGroupIdentifier, ListIdentifier} from '../groupids';
 
 @Component({
@@ -34,7 +34,8 @@ import {ListGroupIdentifier, ListIdentifier} from '../groupids';
 export class TraceListComponent extends ResourceListWithStatuses<TraceList, Trace> {
   @Input() initialized = false;
   @Input() objectMeta:ObjectMeta;
-  @Input() typeMeta:TypeMeta;
+  @Input() mode = 'all';
+  @Input() service:any = null;
 	
 	traceList:any;
 	endpointMap:any = {};
@@ -56,35 +57,40 @@ export class TraceListComponent extends ResourceListWithStatuses<TraceList, Trac
 	}
 	loadEP(){
 		if(this.initialized){
-			this.jaeger_.getServicePath(this.typeMeta,this.objectMeta).subscribe(_ => {
-				this.endpoints = [];
-				this.endpointMap = {'space':{name:'space',flex:10,arrows:[],parent:[]}};
-				let data:Array<any> = JSON.parse(_).data;
-				data.forEach((item)=>{
-					if(!(this.endpointMap[item.parent])){
-						this.endpointMap[item.parent] = {name:item.parent,flex:10,arrows:[],parent:[]}
-					}
-					this.endpointMap[item.parent].arrows.push({count:item.callCount,target:item.child})
-					if(!this.endpointMap[item.child]){
-						this.endpointMap[item.child] = {name:item.child,flex:10,arrows:[],parent:[]}
-					}
-					this.endpointMap[item.child].parent.push(item.parent)
-				})
-				
-				let current:number = 0
-				this.endpoints[current]=[];
-				Object.keys(this.endpointMap).forEach(_key => {
-					if(_key!='space'&&this.endpointMap[_key].parent.length==0){
-						if(!this.endpointhover){
-							this.endpointhover = _key;
-						this.jaeger_.doJaegerChange();
+			if(!this.service){
+				this.jaeger_.getServicePath(this.objectMeta).subscribe(_ => {
+					this.endpoints = [];
+					this.endpointMap = {'space':{name:'space',flex:10,arrows:[],parent:[]}};
+					let data:Array<any> = JSON.parse(_).data;
+					data.forEach((item)=>{
+						if(!(this.endpointMap[item.parent])){
+							this.endpointMap[item.parent] = {name:item.parent,flex:10,arrows:[],parent:[]}
 						}
-						this.endpoints[current].push(this.endpointMap[_key])
-					}
-				})
-				this.nextEP(current+1);
-				this.cdr_.markForCheck();
-			});
+						this.endpointMap[item.parent].arrows.push({count:item.callCount,target:item.child})
+						if(!this.endpointMap[item.child]){
+							this.endpointMap[item.child] = {name:item.child,flex:10,arrows:[],parent:[]}
+						}
+						this.endpointMap[item.child].parent.push(item.parent)
+					})
+					
+					let current:number = 0
+					this.endpoints[current]=[];
+					Object.keys(this.endpointMap).forEach(_key => {
+						if(_key!='space'&&this.endpointMap[_key].parent.length==0){
+							if(!this.endpointhover){
+								this.endpointhover = _key;
+							this.jaeger_.doJaegerChange();
+							}
+							this.endpoints[current].push(this.endpointMap[_key])
+						}
+					})
+					this.nextEP(current+1);
+					this.cdr_.markForCheck();
+				});
+			}else{
+				this.endpointhover = this.service;
+				this.jaeger_.doJaegerChange();
+			}
 		}
 	}
 	nextEP(current:number) {
@@ -119,7 +125,7 @@ export class TraceListComponent extends ResourceListWithStatuses<TraceList, Trac
 	
   getResourceObservable(params?: HttpParams): Observable<any> {
 		console.log(params);
-		return this.jaeger_.getTraceList(this.endpointhover,this.typeMeta,this.objectMeta,params);
+		return this.jaeger_.getTraceList(this.endpointhover,this.objectMeta,params);
   }
 
   map(resp: any): Trace[] {

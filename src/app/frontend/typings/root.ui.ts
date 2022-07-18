@@ -211,8 +211,10 @@ export enum IBreadcrumbMessageKey {
   CustomResourceDefinitions = 'CustomResourceDefinitions',
   Settings = 'Settings',
   About = 'About',
-  Meshconfig = 'Meshconfig',
-  Meshconfigs = 'Meshconfigs',
+  Mesh = 'Mesh',
+  Meshs = 'Meshs',
+  Config = 'Config',
+  Trace = 'Trace',
 }
 
 export type IBreadcrumbMessage = {

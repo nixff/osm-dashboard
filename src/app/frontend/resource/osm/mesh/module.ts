@@ -17,6 +17,7 @@ import {NgModule} from '@angular/core';
 import {ComponentsModule} from '@common/components/module';
 import {SharedModule} from '../../../shared.module';
 
+import {MeshTraceComponent} from './trace/component';
 import {MeshConfigComponent} from './config/component';
 import {MeshDetailComponent} from './detail/component';
 import {MeshListComponent} from './list/component';
@@ -24,6 +25,6 @@ import {MeshRoutingModule} from './routing';
 
 @NgModule({
   imports: [SharedModule, ComponentsModule, MeshRoutingModule],
-  declarations: [MeshListComponent, MeshDetailComponent, MeshConfigComponent],
+  declarations: [MeshListComponent, MeshDetailComponent, MeshConfigComponent, MeshTraceComponent],
 })
 export class MeshModule {}

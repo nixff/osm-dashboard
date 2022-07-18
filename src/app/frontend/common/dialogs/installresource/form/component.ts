@@ -108,6 +108,10 @@ export class DialogFormComponent extends ICanDeactivate implements OnInit, OnDes
 	  return this.form.get('tracingDeploy');
 	}
 	
+	get metricsEnabled(): AbstractControl {
+	  return this.form.get('metricsEnabled');
+	}
+	
 	get metricsAddress(): AbstractControl {
 	  return this.form.get('metricsAddress');
 	}
@@ -131,6 +135,7 @@ export class DialogFormComponent extends ICanDeactivate implements OnInit, OnDes
 			tracingAddress: [meshOptions.osm.tracing.address],
 			tracingPort: [meshOptions.osm.tracing.port],
 			tracingEndpoint: [meshOptions.osm.tracing.endpoint],
+			metricsEnabled: [meshOptions.osm.prometheus.enable],
 			metricsDeploy: [meshOptions.osm.deployPrometheus],
 			metricsPort: [meshOptions.osm.prometheus.port],
 			metricsAddress: [meshOptions.osm.prometheus.address],
@@ -252,6 +257,7 @@ export class DialogFormComponent extends ICanDeactivate implements OnInit, OnDes
 		_options.osm.tracing.endpoint = this.form.get('tracingEndpoint').value;
 		_options.osm.deployPrometheus = this.form.get('metricsDeploy').value;
 		_options.osm.deployGrafana = this.form.get('metricsDeploy').value;
+		_options.osm.prometheus.enable = this.form.get('metricsEnabled').value;
 		_options.osm.prometheus.port = this.form.get('metricsPort').value;
 		_options.osm.prometheus.address = this.form.get('metricsAddress').value;
 		
@@ -274,6 +280,7 @@ export class DialogFormComponent extends ICanDeactivate implements OnInit, OnDes
 		this.form.get('tracingAddress').setValue(_options.osm.tracing.address, {emitEvent: false});
 		this.form.get('tracingPort').setValue(_options.osm.tracing.port, {emitEvent: false});
 		this.form.get('tracingEndpoint').setValue(_options.osm.tracing.endpoint, {emitEvent: false});
+		this.form.get('metricsEnabled').setValue(_options.osm.prometheus.enable, {emitEvent: false});
 		this.form.get('metricsDeploy').setValue(_options.osm.deployPrometheus, {emitEvent: false});
 		this.form.get('metricsPort').setValue(_options.osm.prometheus.port, {emitEvent: false});
 		this.form.get('metricsAddress').setValue(_options.osm.prometheus.address, {emitEvent: false});

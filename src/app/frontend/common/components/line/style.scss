@@ -12,22 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {NgModule} from '@angular/core';
-import {Route, RouterModule} from '@angular/router';
-import {BREADCRUMBS} from '../../index.messages';
-import {OsmComponent} from './component';
-
-export const OSM_ROUTE: Route = {
-  path: '',
-  component: OsmComponent,
-  data: {
-    breadcrumb: BREADCRUMBS.Mesh,
-    link: ['', 'osm'],
-  },
-};
-
-@NgModule({
-  imports: [RouterModule.forChild([OSM_ROUTE])],
-  exports: [RouterModule],
-})
-export class OsmRoutingModule {}
+@use '../../../variables' as *;
+.line-chart-root{
+	padding-top: 5px;
+	padding-bottom: 15px;
+	padding-left: 15px;
+}
+.line-chart-root,.line-chart{
+	display: block;
+	width: 100%;
+}

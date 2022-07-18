@@ -103,7 +103,7 @@ export class TraceDetailResourceDialog {
 						name: span.operationName,
 						start:(span.startTime - this.minTime)*100/(this.maxTime - this.minTime),
 						width:span.duration*100/(this.maxTime - this.minTime),
-						duration: span.duration,
+						duration: Math.ceil(span.duration/1000),
 						isExpanded: true,
 						children: this.findChild(span.spanID, level+1)
 					});
@@ -116,7 +116,7 @@ export class TraceDetailResourceDialog {
 						name: span.operationName,
 						start:(span.startTime - this.minTime)*100/(this.maxTime - this.minTime),
 						width:span.duration*100/(this.maxTime - this.minTime),
-						duration: span.duration,
+						duration: Math.ceil(span.duration/1000),
 						isExpanded: true,
 						children: this.findChild(span.spanID, level+1)
 					});

@@ -36,6 +36,7 @@ import {ThemeService} from './theme';
 import {TitleService} from './title';
 import {VerberService} from './verber';
 import {JaegerService} from './jaeger';
+import {PrometheusService} from './prometheus';
 import {PluginsConfigService} from './plugin';
 import {PluginLoaderService} from '../pluginloader/pluginloader.service';
 import {ClientPluginLoaderService} from '../pluginloader/clientloader.service';
@@ -65,6 +66,7 @@ import {PinnerService} from './pinner';
     ParamsService,
     LocalConfigLoaderService,
     DecoderService,
+		PrometheusService,
     {
       provide: APP_INITIALIZER,
       useFactory: init,

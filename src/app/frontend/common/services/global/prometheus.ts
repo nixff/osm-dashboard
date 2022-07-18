@@ -19,13 +19,13 @@ import {GlobalSettingsService} from '../global/globalsettings';
 import {publishReplay, refCount, switchMap, switchMapTo} from 'rxjs/operators';
 import {timer, Subject} from 'rxjs';
 
-import {JaegerResource} from '../../resources/jaegerresource';
+import {PrometheusResource} from '../../resources/prometheusresource';
 
 
 @Injectable()
-export class JaegerService {
-  onJaegerChange = new Subject<void>();
-  onTraceChange = new Subject<void>();
+export class PrometheusService {
+  onPrometheusChange = new Subject<void>();
+  onMetricChange = new Subject<void>();
 
   constructor(
 		private readonly http_: HttpClient,
@@ -33,35 +33,26 @@ export class JaegerService {
 		// private readonly csrfToken_: CsrfTokenService,
 	) {}
 
-	doJaegerChange(): void {
-		this.onJaegerChange.next();
+	doPrometheusChange(): void {
+		this.onPrometheusChange.next();
 	}
-	doTraceChange(): void {
-		this.onTraceChange.next();
+	doMetricChange(): void {
+		this.onMetricChange.next();
 	}
-	getServicePath(objectMeta: ObjectMeta) {
-		const endTs = new Date().getTime();
-		const lookback = 604800000;
-		const url = JaegerResource.getUrl(objectMeta, `dependencies?endTs=${endTs}&lookback=${lookback}`);
-		
+	getTPS(objectMeta: ObjectMeta,isInit: boolean) {
+		const query = `topk(2, sum(irate(envoy_cluster_upstream_rq_xx{envoy_response_code_class="2"}[1m])) by (source_namespace, source_service, envoy_cluster_name))`;
+		const url = PrometheusResource.getUrl(objectMeta, query,isInit);
 		return this.http_.get(url, {responseType: 'text'});
 	}
-	getTraceList(service:string, objectMeta: ObjectMeta, params?: HttpParams) {
-		const endTs = new Date().getTime();
-		const lookback = 604800000;
-		const url = JaegerResource.getUrl(objectMeta, `traces?end=${endTs*1000}&limit=50&lookback=1h&maxDuration&minDuration&service=${service}&start=${endTs*1000-lookback*1000}`);
-
-		return this.settings_.onSettingsUpdate
-		  .pipe(
-		    switchMap(() => {
-		      let interval = this.settings_.getResourceAutoRefreshTimeInterval();
-		      interval = interval === 0 ? undefined : interval * 1000;
-		      return timer(0, interval);
-		    })
-		  )
-		  .pipe(switchMapTo(this.http_.get(url, {responseType: 'text',params})))
-		  .pipe(publishReplay(1))
-		  .pipe(refCount());
+	getER(objectMeta: ObjectMeta,isInit: boolean) {
+		const query = `topk(2, sum(irate(envoy_cluster_upstream_rq_xx{envoy_response_code_class!="2"}[1m])) by (source_namespace, source_service, envoy_cluster_name))`;
+		const url = PrometheusResource.getUrl(objectMeta, query,isInit);
+		return this.http_.get(url, {responseType: 'text'});
+	}
+	getLatency(objectMeta: ObjectMeta,isInit: boolean) {
+		const query = `topk(2, histogram_quantile(0.99,sum(irate(osm_request_duration_ms_bucket{}[1m])) by (le, source_namespace, source_name, destination_namespace, destination_name)))`;
+		const url = PrometheusResource.getUrl(objectMeta, query,isInit);
+		return this.http_.get(url, {responseType: 'text'});
 	}
 
   getHttpHeaders_(): HttpHeaders {

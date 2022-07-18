@@ -22,7 +22,7 @@ limitations under the License.
     <kd-card-list-filter></kd-card-list-filter>
   </div>
 	<div content >
-		<div class="endpoint-root" [style]="'height'+endpoints.length*200+'px'">
+		<div [hidden]="!!service" class="endpoint-root" [style]="'height'+endpoints.length*200+'px'">
 			<div class="endpoint-col" *ngFor="let endpointAry of endpoints; let i = index" >
 				<div class="endpoint-group" *ngFor="let endpoint of endpointAry" [style]="'flex:'+endpoint.flex">
 					<div class="endpoint-card" (click)="changeHover(endpoint.name)" *ngIf="endpoint.name != 'space'" [class]="endpoint.name==endpointhover?'hover':''">
@@ -38,92 +38,94 @@ limitations under the License.
 		</div>
     <div kdLoadingSpinner
          [isLoading]="isLoading"></div>
-		<kd-bubble [dataSource]="getData()"></kd-bubble>
-    <mat-table [dataSource]="getData()"
-               matSort
-               matSortActive="created"
-               matSortDisableClear
-               matSortDirection="asc">
+		<div [hidden]="mode=='short'">
+			<kd-bubble [dataSource]="getData()"></kd-bubble>
+			<mat-table [dataSource]="getData()"
+								 matSort
+								 matSortActive="created"
+								 matSortDisableClear
+								 matSortDirection="asc">
 
-      <ng-container matColumnDef="traceID">
-        <mat-header-cell *matHeaderCellDef
-                         mat-sort-header
-                         disableClear="true"
-                         class="col-stretch-xl"
-                         i18n>traceID</mat-header-cell>
-        <mat-cell *matCellDef="let record"
-                  class="col-stretch-xl">
-          <a (click)="openTraceDetail(record)" href="javascript:void(0)">
-            {{ record.traceID }}
-          </a>
-        </mat-cell>
-      </ng-container>
+				<ng-container matColumnDef="traceID">
+					<mat-header-cell *matHeaderCellDef
+													 mat-sort-header
+													 disableClear="true"
+													 class="col-stretch-xl"
+													 i18n>traceID</mat-header-cell>
+					<mat-cell *matCellDef="let record"
+										class="col-stretch-xl">
+						<a (click)="openTraceDetail(record)" href="javascript:void(0)">
+							{{ record.traceID }}
+						</a>
+					</mat-cell>
+				</ng-container>
 
-      <ng-container matColumnDef="spans">
-        <mat-header-cell *matHeaderCellDef
-                         class="col-stretch-xl"
-                         i18n>Span</mat-header-cell>
-        <mat-cell *matCellDef="let record"
-                  class="col-stretch-xl">
-          <kd-chips [map]="[record.spans.length+'span']"></kd-chips>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="processes">
-        <mat-header-cell *matHeaderCellDef
-                         class="col-stretch-xl"
-                         i18n>Processes</mat-header-cell>
-        <mat-cell *matCellDef="let record"
-                  class="col-stretch-xl">
-					<span *ngFor="let processKey of record.processKeys" >
-						<kd-chips [map]="[record.processes[processKey].serviceName]"></kd-chips>
-					</span>
-        </mat-cell>
-      </ng-container>
+				<ng-container matColumnDef="spans">
+					<mat-header-cell *matHeaderCellDef
+													 class="col-stretch-xl"
+													 i18n>Span</mat-header-cell>
+					<mat-cell *matCellDef="let record"
+										class="col-stretch-xl">
+						<kd-chips [map]="[record.spans.length+'span']"></kd-chips>
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="processes">
+					<mat-header-cell *matHeaderCellDef
+													 class="col-stretch-xl"
+													 i18n>Processes</mat-header-cell>
+					<mat-cell *matCellDef="let record"
+										class="col-stretch-xl">
+						<span *ngFor="let processKey of record.processKeys" >
+							<kd-chips [map]="[record.processes[processKey].serviceName]"></kd-chips>
+						</span>
+					</mat-cell>
+				</ng-container>
 
-      <ng-container matColumnDef="time">
-        <mat-header-cell *matHeaderCellDef
-                         mat-sort-header
-                         disableClear="true"
-                         class="col-stretch-m"
-                         i18n>Time</mat-header-cell>
-        <mat-cell *matCellDef="let record"
-                  class="col-stretch-m">
-          <kd-date [date]="record.spans[0].startTime/1000"
-                   relative></kd-date>
-        </mat-cell>
-      </ng-container>
+				<ng-container matColumnDef="time">
+					<mat-header-cell *matHeaderCellDef
+													 mat-sort-header
+													 disableClear="true"
+													 class="col-stretch-m"
+													 i18n>Time</mat-header-cell>
+					<mat-cell *matCellDef="let record"
+										class="col-stretch-m">
+						<kd-date [date]="record.spans[0].startTime/1000"
+										 relative></kd-date>
+					</mat-cell>
+				</ng-container>
 
-      <ng-container *ngFor="let col of getActionColumns()"
-                    [matColumnDef]="col.name">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let record">
-          <kd-dynamic-cell [component]="col.component"
-                           [resource]="record"></kd-dynamic-cell>
-        </mat-cell>
-      </ng-container>
+				<ng-container *ngFor="let col of getActionColumns()"
+											[matColumnDef]="col.name">
+					<mat-header-cell *matHeaderCellDef></mat-header-cell>
+					<mat-cell *matCellDef="let record">
+						<kd-dynamic-cell [component]="col.component"
+														 [resource]="record"></kd-dynamic-cell>
+					</mat-cell>
+				</ng-container>
 
-      <ng-container *ngFor="let col of getActionColumns()"
-                    [matColumnDef]="col.name">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let component">
-          <kd-dynamic-cell [component]="col.component"
-                           [resource]="component"></kd-dynamic-cell>
-        </mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="getColumns()"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: getColumns()"></mat-row>
-    </mat-table>
+				<ng-container *ngFor="let col of getActionColumns()"
+											[matColumnDef]="col.name">
+					<mat-header-cell *matHeaderCellDef></mat-header-cell>
+					<mat-cell *matCellDef="let component">
+						<kd-dynamic-cell [component]="col.component"
+														 [resource]="component"></kd-dynamic-cell>
+					</mat-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="getColumns()"></mat-header-row>
+				<mat-row *matRowDef="let row; columns: getColumns()"></mat-row>
+			</mat-table>
 
-		<div [hidden]="totalItems <= 50">
-      <mat-paginator [length]="totalItems"
-                     [pageSize]="50"
-                     hidePageSize
-                     showFirstLastButtons></mat-paginator>
+			<div [hidden]="totalItems <= 50">
+				<mat-paginator [length]="totalItems"
+											 [pageSize]="50"
+											 hidePageSize
+											 showFirstLastButtons></mat-paginator>
+			</div>
     </div>
   </div>
 
   <div content
-       [hidden]="!showZeroState()">
+       [hidden]="mode=='short' || !showZeroState()">
     <kd-list-zero-state></kd-list-zero-state>
   </div>
 </kd-card>
