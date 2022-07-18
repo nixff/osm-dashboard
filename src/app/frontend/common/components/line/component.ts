@@ -1,6 +1,5 @@
 import { Component, NgModule, Input } from '@angular/core';
 import { PrometheusService } from '@common/services/global/prometheus';
-import { multi } from './data';
 
 @Component({
   selector: 'kd-line',
