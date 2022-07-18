@@ -1,9 +1,5 @@
 import { Component, NgModule, Input } from '@angular/core';
-// import { BrowserModule } from '@angular/platform-browser';
-// import { NgxChartsModule } from '@swimlane/ngx-charts';
-// import { bubbleData } from './data';
 import { JaegerService } from '@common/services/global/jaeger';
-// import * as d3 from 'd3';
 
 @Component({
   selector: 'kd-bubble',
