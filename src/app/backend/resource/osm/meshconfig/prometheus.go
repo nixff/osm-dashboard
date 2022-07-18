@@ -15,23 +15,9 @@ import (
 	client "k8s.io/client-go/kubernetes"
 )
 
-type MetricType struct {
-	NodeName string `json:"node_name"`
-}
-
-type ResultType struct {
-	Metric MetricType    `json:"metric"`
-	Value  []interface{} `json:"value"`
-}
-
-type QueryData struct {
-	ResultType string       `json:"resultType"`
-	Result     []ResultType `json:"result"`
-}
-
 type QueryInfo struct {
-	Status string    `json:"status"`
-	Data   QueryData `json:"data"`
+	Status string      `json:"status"`
+	Data   interface{} `json:"data"`
 }
 
 func GetPromResult(url string, result interface{}) error {
@@ -53,9 +39,10 @@ func GetPromResult(url string, result interface{}) error {
 }
 
 // query metric by prom api
-func QueryMetric(endpoint string, query string) (*QueryInfo, error) {
+func QueryMetric(endpoint string, query string, method string) (*QueryInfo, error) {
 	info := &QueryInfo{}
-	ustr := endpoint + "/api/v1/query?query=" + query
+	ustr := endpoint + "/api/v1/" + method + "?query=" + query
+	fmt.Println(ustr)
 	u, err := url.Parse(ustr)
 	if err != nil {
 		return info, err
@@ -71,12 +58,12 @@ func QueryMetric(endpoint string, query string) (*QueryInfo, error) {
 }
 
 // ProxyPrometheus returns detailed information about an query
-func ProxyPrometheus(osmConfigClient osmconfigclientset.Interface, client client.Interface, namespace, name, query string) (*QueryInfo, error) {
+func ProxyPrometheus(osmConfigClient osmconfigclientset.Interface, client client.Interface, namespace, name, query, method string) (*QueryInfo, error) {
 	log.Printf("Getting details of %s proxy Prometheus in %s namespace", name, namespace)
 	// TODO
 	url := "http://osm-prometheus." + namespace + ".svc:7070"
 	url = "http://192.168.10.35:31001"
-	promResult, err := QueryMetric(url, query)
+	promResult, err := QueryMetric(url, query, method)
 
 	if err != nil {
 		return nil, err
