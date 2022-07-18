@@ -22,7 +22,7 @@ limitations under the License.
     <kd-card-list-filter></kd-card-list-filter>
   </div>
 	<div content >
-		<div class="endpoint-root" [style]="'height'+endpoints.length*200+'px'">
+		<div [hidden]="!!service" class="endpoint-root" [style]="'height'+endpoints.length*200+'px'">
 			<div class="endpoint-col" *ngFor="let endpointAry of endpoints; let i = index" >
 				<div class="endpoint-group" *ngFor="let endpoint of endpointAry" [style]="'flex:'+endpoint.flex">
 					<div class="endpoint-card" (click)="changeHover(endpoint.name)" *ngIf="endpoint.name != 'space'" [class]="endpoint.name==endpointhover?'hover':''">

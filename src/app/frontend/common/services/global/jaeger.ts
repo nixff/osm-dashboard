@@ -39,17 +39,17 @@ export class JaegerService {
 	doTraceChange(): void {
 		this.onTraceChange.next();
 	}
-	getServicePath(typeMeta: TypeMeta, objectMeta: ObjectMeta) {
+	getServicePath(objectMeta: ObjectMeta) {
 		const endTs = new Date().getTime();
 		const lookback = 604800000;
-		const url = JaegerResource.getUrl(typeMeta, objectMeta, `dependencies?endTs=${endTs}&lookback=${lookback}`);
+		const url = JaegerResource.getUrl(objectMeta, `dependencies?endTs=${endTs}&lookback=${lookback}`);
 		
 		return this.http_.get(url, {responseType: 'text'});
 	}
-	getTraceList(service:string, typeMeta: TypeMeta, objectMeta: ObjectMeta, params?: HttpParams) {
+	getTraceList(service:string, objectMeta: ObjectMeta, params?: HttpParams) {
 		const endTs = new Date().getTime();
 		const lookback = 604800000;
-		const url = JaegerResource.getUrl(typeMeta, objectMeta, `traces?end=${endTs*1000}&limit=50&lookback=1h&maxDuration&minDuration&service=${service}&start=${endTs*1000-lookback*1000}`);
+		const url = JaegerResource.getUrl(objectMeta, `traces?end=${endTs*1000}&limit=50&lookback=1h&maxDuration&minDuration&service=${service}&start=${endTs*1000-lookback*1000}`);
 
 		return this.settings_.onSettingsUpdate
 		  .pipe(

@@ -58,3 +58,7 @@ limitations under the License.
 <kd-ingress-list [endpoint]="ingressListEndpoint"></kd-ingress-list>
 
 <kd-event-list [endpoint]="eventListEndpoint"></kd-event-list>
+
+<!-- <div *ngIf="service">
+	<kd-trace-list [service]="service?.objectMeta.name" mode="all" [initialized]="isInitialized" (onchange)="onListUpdate($event)" [typeMeta]="service?.typeMeta" [objectMeta]="service?.objectMeta"></kd-trace-list>
+</div> -->
