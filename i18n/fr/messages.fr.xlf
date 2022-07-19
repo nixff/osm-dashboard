@@ -39,7 +39,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/dialogs/installresource/form/template.html</context>
-          <context context-type="linenumber">216</context>
+          <context context-type="linenumber">225</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/dialogs/scaleresource/template.html</context>
@@ -729,7 +729,7 @@
         <target>Cluster</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/overview/template.html</context>
@@ -761,7 +761,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">34</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/workloads/deployment/detail/template.html</context>
@@ -777,7 +777,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/workloads/deployment/detail/template.html</context>
@@ -797,7 +797,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/workloads/deployment/detail/template.html</context>
@@ -1069,7 +1069,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/workloads/deployment/detail/template.html</context>
@@ -1097,7 +1097,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">79</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/workloads/deployment/detail/template.html</context>
@@ -1113,7 +1113,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="546766753072101168" datatype="html">
@@ -1201,7 +1201,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">95</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/workloads/deployment/detail/template.html</context>
@@ -1217,7 +1217,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">102</context>
+          <context context-type="linenumber">105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3517550046701184661" datatype="html">
@@ -1559,7 +1559,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="795890916060309463" datatype="html">
@@ -1571,7 +1571,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4230227443728227002" datatype="html">
@@ -1583,7 +1583,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5972502836680454671" datatype="html">
@@ -1710,9 +1710,9 @@
           <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6845705687289409609" datatype="html">
-        <source>OSM </source>
-        <target state="new">OSM </target>
+      <trans-unit id="3841546376863517107" datatype="html">
+        <source>Service Mesh (OSM) </source>
+        <target state="new">Service Mesh (OSM) </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/chrome/nav/template.html</context>
           <context context-type="linenumber">88,89</context>
@@ -2101,12 +2101,28 @@
           <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="325083656076062067" datatype="html">
-        <source>Meshconfigs</source>
-        <target state="new">Meshconfigs</target>
+      <trans-unit id="1287392006668450028" datatype="html">
+        <source>Meshs</source>
+        <target state="new">Meshs</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
           <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2892412979837680989" datatype="html">
+        <source>Config</source>
+        <target state="new">Config</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7869196447743949096" datatype="html">
+        <source>Trace</source>
+        <target state="new">Trace</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8146913170965682434" datatype="html">
@@ -2114,7 +2130,7 @@
         <target state="new">Config And Storage</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6984509752476604600" datatype="html">
@@ -2153,8 +2169,12 @@
           <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4778334653435063448" datatype="html">
@@ -2166,11 +2186,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1101953121986747707" datatype="html">
@@ -2206,7 +2226,7 @@
         <target state="new">Secrets</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/overview/template.html</context>
@@ -2238,7 +2258,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5680114016457280827" datatype="html">
@@ -2626,6 +2646,14 @@
           <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="4196232656388343089" datatype="html">
+        <source>Metrics</source>
+        <target state="new">Metrics</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/frontend/common/components/resourcelist/metric/template.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2803293796008679153" datatype="html">
         <source>Ingress Classes</source>
         <target state="new">Ingress Classes</target>
@@ -2851,7 +2879,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="434404492084234684" datatype="html">
@@ -2975,7 +3003,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3463375855672784957" datatype="html">
@@ -2987,7 +3015,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="960921869392057255" datatype="html">
@@ -2999,7 +3027,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="97066167691656299" datatype="html">
@@ -3367,7 +3395,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7198836215060144081" datatype="html">
@@ -3387,7 +3415,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6901018060567164184" datatype="html">
@@ -3611,7 +3639,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4930506384627295710" datatype="html">
@@ -3619,7 +3647,7 @@
         <target state="new">Settings</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8623978917681527907" datatype="html">
@@ -3703,7 +3731,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8384742917026482252" datatype="html">
@@ -3727,7 +3755,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7825570888384392250" datatype="html">
@@ -4305,7 +4333,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4814940703935231049" datatype="html">
@@ -4353,7 +4381,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4580988005648117665" datatype="html">
@@ -5096,7 +5124,7 @@
         <target state="new">Tracing Address</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/dialogs/installresource/form/template.html</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">136</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5693993471751761333" datatype="html">
@@ -5478,24 +5506,16 @@
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4398643874980850189" datatype="html">
-        <source>Meshconfig</source>
-        <target state="new">Meshconfig</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/frontend/index.messages.ts</context>
-          <context context-type="linenumber">48</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="6117946241126833991" datatype="html">
         <source>Port</source>
         <target>Port</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/dialogs/installresource/form/template.html</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">148</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/dialogs/installresource/form/template.html</context>
-          <context context-type="linenumber">189</context>
+          <context context-type="linenumber">198</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/create/from/form/portmappings/template.html</context>
@@ -5507,7 +5527,7 @@
         <target state="new">Endpoint</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/dialogs/installresource/form/template.html</context>
-          <context context-type="linenumber">158</context>
+          <context context-type="linenumber">159</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2175128013197832731" datatype="html">
@@ -5515,7 +5535,7 @@
         <target state="new">Metrics Address</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/dialogs/installresource/form/template.html</context>
-          <context context-type="linenumber">177</context>
+          <context context-type="linenumber">186</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1578388299797377382" datatype="html">
@@ -5523,7 +5543,7 @@
         <target state="new">This options variable refer to the</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/dialogs/installresource/form/template.html</context>
-          <context context-type="linenumber">244</context>
+          <context context-type="linenumber">253</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3910914001392684259" datatype="html">
@@ -6392,7 +6412,7 @@
         <target state="new">traceID</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/components/resourcelist/trace/template.html</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8990805719441989570" datatype="html">
@@ -6400,7 +6420,7 @@
         <target state="new">Span</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/components/resourcelist/trace/template.html</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="139651487721336451" datatype="html">
@@ -6408,7 +6428,7 @@
         <target state="new">Processes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/components/resourcelist/trace/template.html</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8497528947328199741" datatype="html">
@@ -6416,7 +6436,7 @@
         <target state="new">Time</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/components/resourcelist/trace/template.html</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5052847322835338113" datatype="html">
@@ -6440,7 +6460,7 @@
         <target state="new">edit</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7536246327361604463" datatype="html">
@@ -7048,7 +7068,7 @@
         <target state="new">Add Namespace</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/resource/osm/mesh/detail/template.html</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">119</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/settings/global/namespace/adddialog/template.html</context>
