@@ -97,7 +97,7 @@ export class MeshMetricComponent {
 			this.prometheus_.doMetricChange();
 		})
 		this.prometheus_.getLatency(this.objectMeta,!this.latencyData).subscribe(_ => {
-			this.latencyData = this.mapData(this.latencyData,_,function (d:any){return d/1000});
+			this.latencyData = this.mapData(this.latencyData,_,function (d:any){return isNaN(d/1000)?0:(d/1000)});
 			this.prometheus_.doMetricChange();
 		})
 	}

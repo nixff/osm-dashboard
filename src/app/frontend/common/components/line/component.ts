@@ -10,6 +10,7 @@ export class LineComponent {
   @Input() dataSource: any[];
 	@Input() width: number = 550;
 	@Input() height: number = 300;
+	@Input() scheme: string = 'cool';
 	@Input() xAxisLabel: string = 'Year';
 	@Input() yAxisLabel: string = 'Population';
 	@Input() colors: string[] = ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'];

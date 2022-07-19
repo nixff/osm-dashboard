@@ -37,14 +37,14 @@ export class BubbleComponent {
 			//this.dataSource.filteredData
 			let bubbleData:any[] = [];
 			this.dataSource.filteredData.forEach((item: any)=>{
-				this.yScaleMax = this.yScaleMax>(item.spans[0].duration+100)?this.yScaleMax:(item.spans[0].duration+100);
+				this.yScaleMax = this.yScaleMax>(item.spans[0].duration/1000+100)?this.yScaleMax:(item.spans[0].duration/1000+100);
 				bubbleData.push({
 					name: 'trace-'+item.traceID,
 					series: [
 						{
 							name: item.spans[0].operationName,
 							x: new Date(item.spans[0].startTime),
-							y: item.spans[0].duration,
+							y: item.spans[0].duration/1000,
 							r: item.spans.length
 						}
 					]

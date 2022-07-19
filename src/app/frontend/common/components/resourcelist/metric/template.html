@@ -1,17 +1,14 @@
-<kd-card role="table" [initialized]="initialized">
+<kd-card role="table" [initialized]="initialized" >
   <div title
        fxLayout="row"
        i18n>Metrics</div>
   <div actions style="display: flex">
   </div>
 	<div content >
-		<div style="display: flex;">
-			<div style="flex: 1;"><kd-line yAxisLabel="TPS (Req/s)" [dataSource]="getArrayData(tpsData)" [height]="370" [width]="370"></kd-line></div>
-			<div style="flex: 1;"><kd-line yAxisLabel="ErrorRate (Req/s)" [dataSource]="getArrayData(erData)" [height]="370" [width]="370"></kd-line></div>
-			<div style="flex: 1;"><kd-line yAxisLabel="Latency (ms)" [dataSource]="getArrayData(latencyData)" [height]="370" [width]="370"></kd-line></div>
-			<!-- <div style="flex: 1;"><kd-line [height]="370" [width]="370"></kd-line></div> -->
-			<!-- <div style="flex: 1;"><kd-line [height]="370" [width]="370"></kd-line></div> -->
+		<div style="display: flex;width: 100%;">
+			<div style="flex: 1;"><kd-line yAxisLabel="TPS (Req/s)" [dataSource]="getArrayData(tpsData)" [height]="300" [width]="420"></kd-line></div>
+			<div style="flex: 1;"><kd-line scheme="cool" yAxisLabel="ErrorRate (Req/s)" [dataSource]="getArrayData(erData)" [height]="300" [width]="420"></kd-line></div>
+			<div style="flex: 1;"><kd-line scheme="cool" yAxisLabel="Latency (ms)" [dataSource]="getArrayData(latencyData)" [height]="300" [width]="420"></kd-line></div>
 		</div>
-		
   </div>
 </kd-card>
