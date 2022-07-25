@@ -42,10 +42,10 @@ function release-helm-chart {
   say "\nGenerating new Helm index, containing all existing versions in gh-pages (previous ones + new one)."
   helm repo index . --merge $ROOT_DIR/index.yaml
   mv index.yaml $ROOT_DIR/index.yaml
-  mv kubernetes-dashboard-*.tgz $ROOT_DIR
+  mv osm-dashboard-*.tgz $ROOT_DIR
   cd $OLDPWD
   say "\nCommit new package and index."
-  git add -A "./kubernetes-dashboard-*.tgz" ./index.yaml && git commit -m "Update Helm repository from CI."
+  git add -A "./osm-dashboard-*.tgz" ./index.yaml && git commit -m "Update Helm repository from CI."
   say "\nIf you are happy with the changes, please manually push to the gh-pages branch. No force should be needed."
   say "Assuming upstream is your remote, please run: git push upstream gh-pages."
 }
