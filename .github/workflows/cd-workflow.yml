@@ -16,7 +16,7 @@ name: Continuous Deployment - App
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, osm-* ]
   create:
     tags:
       - 'v*.*.*'
@@ -27,7 +27,7 @@ permissions:
 jobs:
   deploy:
     name: Development Release
-    if: github.event_name == 'push' && contains(github.ref, 'master')
+    if: github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     env:
       NG_CLI_ANALYTICS: ci
@@ -35,6 +35,7 @@ jobs:
       NODE_OPTIONS: "--max-old-space-size=8192"
       DOCKER_CLI_EXPERIMENTAL: enabled
       TERM: xterm
+      HEAD_IMAGE: ${{secrets.HEAD_IMAGE}}
 
     steps:
       - name: Setup Environment
@@ -94,6 +95,7 @@ jobs:
       NODE_OPTIONS: "--max-old-space-size=8192"
       DOCKER_CLI_EXPERIMENTAL: enabled
       TERM: xterm
+      RELEASE_IMAGE: ${{secrets.RELEASE_IMAGE}}
 
     steps:
       - name: Setup Environment

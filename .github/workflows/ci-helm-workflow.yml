@@ -49,7 +49,7 @@ jobs:
 
       - name: Cleanup charts directory
         id: cleanup
-        run: sudo rm -rf aio/deploy/helm-chart/kubernetes-dashboard/charts
+        run: sudo rm -rf aio/deploy/helm-chart/osm-dashboard/charts
 
       - name: Run chart-testing (lint)
         id: lint
