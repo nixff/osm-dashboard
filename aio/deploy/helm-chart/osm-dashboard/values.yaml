@@ -19,7 +19,7 @@
 
 image:
   ## Repository for container
-  repository: kubernetesui/dashboard
+  repository: flomesh-io/osm-dashboard
   tag: v2.5.1
   pullPolicy: IfNotPresent
   pullSecrets: []
