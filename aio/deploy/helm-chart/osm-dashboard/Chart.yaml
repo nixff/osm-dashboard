@@ -15,11 +15,12 @@
 apiVersion: v2
 name: osm-dashboard
 version: 5.5.2
-appVersion: 2.5.1
+appVersion: 2.6.0
 description: General-purpose web UI for Kubernetes clusters
 keywords:
   - kubernetes
   - dashboard
+  - osm-edge
 home: https://github.com/flomesh-io/osm-dashboard
 sources:
   - https://github.com/flomesh-io/osm-dashboard
