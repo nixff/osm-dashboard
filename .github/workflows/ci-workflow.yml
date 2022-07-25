@@ -16,7 +16,7 @@ name: Continuous Integration - Code
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, osm-v2.6.0, gha, pr-* ]
     ignore-paths:
       - '**/*.md'
       - 'aio/deploy/**'
@@ -25,7 +25,7 @@ on:
       - '.github/workflows/cd-helm-workflow.yml'
       - '.github/workflows/cd-workflow.yml'
   pull_request:
-    branches: [ master ]
+    branches: [ master, osm-v2.6.0, gha, pr-* ]
     ignore-paths:
       - '**/*.md'
       - 'aio/deploy/**'

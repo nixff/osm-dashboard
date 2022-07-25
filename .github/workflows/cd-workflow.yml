@@ -16,7 +16,7 @@ name: Continuous Deployment - App
 
 on:
   push:
-    branches: [ master ]
+    #branches: [ master ]
   create:
     tags:
       - 'v*.*.*'
