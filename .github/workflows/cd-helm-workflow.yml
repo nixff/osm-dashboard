@@ -16,7 +16,7 @@ name: Continuous Deployment - Helm
 
 on:
   push:
-    branches: [ master, osm-v2.6.0, gha, pr-* ]
+    branches: [ master, osm-* ]
     paths:
     - 'aio/deploy/helm-chart/**'
     - 'aio/scripts/helm-release-chart.sh'

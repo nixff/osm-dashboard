@@ -16,7 +16,7 @@ name: Continuous Deployment - App
 
 on:
   push:
-    branches: [ master, osm-v2.6.0, gha, pr-* ]
+    branches: [ master, osm-* ]
   create:
     tags:
       - 'v*.*.*'
