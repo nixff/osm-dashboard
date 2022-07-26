@@ -1,6 +1,7 @@
 package meshconfig
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -12,6 +13,7 @@ import (
 
 	osmconfigclientset "github.com/openservicemesh/osm/pkg/gen/client/config/clientset/versioned"
 	"gopkg.in/ffmt.v1"
+	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	client "k8s.io/client-go/kubernetes"
 )
 
@@ -21,10 +23,39 @@ type QueryTracingInfo struct {
 }
 
 // ProxyTracing returns detailed information about an query
+func ProxyNamespaceTracing(osmConfigClient osmconfigclientset.Interface, client client.Interface, namespace, uri string) (*QueryTracingInfo, error) {
+	log.Printf("Getting details of %s proxy Tracing in %s namespace", "tracing", namespace)
+
+	ns, err := client.CoreV1().Namespaces().Get(context.TODO(), namespace, metaV1.GetOptions{})
+	if err != nil {
+		return nil, err
+	}
+	opt := metaV1.ListOptions{}
+	opt.FieldSelector = "metadata.name=" + ns.Labels["openservicemesh.io/monitored-by"] + "-mesh-config"
+	cms, err := client.CoreV1().ConfigMaps("").List(context.TODO(), opt)
+	if err != nil || len(cms.Items) == 0 {
+		return nil, err
+	}
+
+	// TODO
+	url := "http://jaeger." + cms.Items[0].Namespace + ".svc.cluster.local:16686/api/"
+	url = "http://192.168.10.35:31005/api/"
+	replaceStr := "/api/v1/tracing/" + namespace + "/"
+
+	promResult, err := QueryJeager(url, strings.Replace(uri, replaceStr, "", 1))
+
+	if err != nil {
+		return nil, err
+	}
+
+	return promResult, nil
+}
+
+// ProxyTracing returns detailed information about an query
 func ProxyTracing(osmConfigClient osmconfigclientset.Interface, client client.Interface, namespace, name, uri string) (*QueryTracingInfo, error) {
 	log.Printf("Getting details of %s proxy Tracing in %s namespace", name, namespace)
 	// TODO
-	url := "http://jaeger." + namespace + ".svc:16686/api/"
+	url := "http://jaeger." + namespace + ".svc.cluster.local:16686/api/"
 	url = "http://192.168.10.35:31005/api/"
 	replaceStr := "/api/v1/meshconfig/" + namespace + "/" + name + "/tracing"
 
