@@ -22,7 +22,8 @@ limitations under the License.
     <!-- <kd-card-list-filter></kd-card-list-filter> -->
   </div>
 	<div content >
-		<div [hidden]="!!service" class="endpoint-root" [style]="'height'+endpoints.length*200+'px'">
+		<div class="endpoint-scroll" >
+		<div [hidden]="!!service" class="endpoint-root" [style]="'height:'+(endpoints[0]?endpoints[0].length*120:0)+'px'">
 			<div class="endpoint-col" *ngFor="let endpointAry of endpoints; let i = index" >
 				<div class="endpoint-group" *ngFor="let endpoint of endpointAry" [style]="'flex:'+endpoint.flex">
 					<div class="endpoint-card" (click)="changeHover(endpoint.name)" *ngIf="endpoint.name != 'space'" [class]="endpoint.name==endpointhover?'hover':''">
@@ -35,6 +36,42 @@ limitations under the License.
 					</div>
 				</div>
 			</div>
+		</div>
+		<div [hidden]="!service" class="single-endpoint" [class]="!service?'hidden':''" [style]="'height:'+(lastEndpoints.length>nextEndpoints.length?lastEndpoints.length*120:nextEndpoints.length*120)+'px'">
+			<div class="last-ep">
+				<div class="last-ep-row" *ngFor="let lastEndpoint of lastEndpoints">
+					<div class="endpoint-group">
+						<div class="endpoint-card">
+							<div class="endpoint-name">{{lastEndpoint.name}}</div>
+						</div>
+					</div>
+					<div class="arrow-card" [class]="'length-'+lastEndpoints.length" >
+						<div class="arrow-name">{{lastEndpoint.count}}</div>
+					</div>
+				</div>
+			</div>
+			<div [hidden]="endpoints.length>0" class="center-ep" style="height:100px">
+				<div class="last-arrow" [hidden]="lastEndpoints.length<2"></div>
+				<div style="flex: 1;"></div>
+				<div class="endpoint-card hover" style="flex: 3;">
+					<div class="endpoint-name">{{endpointhover}}</div>
+				</div>
+				<div style="flex: 1;"></div>
+				<div class="next-arrow" [hidden]="nextEndpoints.length<2"></div>
+			</div>
+			<div class="next-ep">
+				<div class="next-ep-row" *ngFor="let nextEndpoint of nextEndpoints">
+					<div class="arrow-card" [class]="'length-'+nextEndpoints.length">
+						<div class="arrow-name">{{nextEndpoint.count}}</div>
+					</div>
+					<div class="endpoint-group">
+						<div class="endpoint-card">
+							<div class="endpoint-name">{{nextEndpoint.name}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		</div>
     <div kdLoadingSpinner
          [isLoading]="isLoading"></div>
