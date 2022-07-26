@@ -197,7 +197,10 @@
 	display: flex;
 	align-items: center;
 }
-
+.single-endpoint.hidden{
+	min-height: 0;
+	display: none;
+}
 .single-endpoint .endpoint-group,.single-endpoint .arrow-card{
 	flex: 1;
 	height: 100%;

@@ -37,7 +37,7 @@ limitations under the License.
 				</div>
 			</div>
 		</div>
-		<div [hidden]="!service" class="single-endpoint" [style]="'height:'+(lastEndpoints.length>nextEndpoints.length?lastEndpoints.length*120:nextEndpoints.length*120)+'px'">
+		<div [hidden]="!service" class="single-endpoint" [class]="!service?'hidden':''" [style]="'height:'+(lastEndpoints.length>nextEndpoints.length?lastEndpoints.length*120:nextEndpoints.length*120)+'px'">
 			<div class="last-ep">
 				<div class="last-ep-row" *ngFor="let lastEndpoint of lastEndpoints">
 					<div class="endpoint-group">
@@ -50,7 +50,7 @@ limitations under the License.
 					</div>
 				</div>
 			</div>
-			<div class="center-ep" style="height:100px">
+			<div [hidden]="endpoints.length>0" class="center-ep" style="height:100px">
 				<div class="last-arrow" [hidden]="lastEndpoints.length<2"></div>
 				<div style="flex: 1;"></div>
 				<div class="endpoint-card hover" style="flex: 3;">
