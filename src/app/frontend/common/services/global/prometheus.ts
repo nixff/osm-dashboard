@@ -39,19 +39,19 @@ export class PrometheusService {
 	doMetricChange(): void {
 		this.onMetricChange.next();
 	}
-	getTPS(objectMeta: ObjectMeta,isInit: boolean) {
+	getTPS(typeMeta: TypeMeta, objectMeta: ObjectMeta,isInit: boolean) {
 		const query = `topk(2, sum(irate(envoy_cluster_upstream_rq_xx{envoy_response_code_class="2"}[1m])) by (source_namespace, source_service, envoy_cluster_name))`;
-		const url = PrometheusResource.getUrl(objectMeta, query,isInit);
+		const url = PrometheusResource.getUrl(typeMeta, objectMeta, query,isInit);
 		return this.http_.get(url, {responseType: 'text'});
 	}
-	getER(objectMeta: ObjectMeta,isInit: boolean) {
+	getER(typeMeta: TypeMeta, objectMeta: ObjectMeta,isInit: boolean) {
 		const query = `topk(2, sum(irate(envoy_cluster_upstream_rq_xx{envoy_response_code_class!="2"}[1m])) by (source_namespace, source_service, envoy_cluster_name))`;
-		const url = PrometheusResource.getUrl(objectMeta, query,isInit);
+		const url = PrometheusResource.getUrl(typeMeta, objectMeta, query,isInit);
 		return this.http_.get(url, {responseType: 'text'});
 	}
-	getLatency(objectMeta: ObjectMeta,isInit: boolean) {
+	getLatency(typeMeta: TypeMeta, objectMeta: ObjectMeta,isInit: boolean) {
 		const query = `topk(2, histogram_quantile(0.99,sum(irate(osm_request_duration_ms_bucket{}[1m])) by (le, source_namespace, source_name, destination_namespace, destination_name)))`;
-		const url = PrometheusResource.getUrl(objectMeta, query,isInit);
+		const url = PrometheusResource.getUrl(typeMeta, objectMeta, query,isInit);
 		return this.http_.get(url, {responseType: 'text'});
 	}
 

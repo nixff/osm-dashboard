@@ -22,7 +22,7 @@ import {ResourceListWithStatuses} from '@common/resources/list';
 import {NamespacedResourceService} from '@common/services/resource/resource';
 import {JaegerService} from '@common/services/global/jaeger';
 import {VerberService} from '@common/services/global/verber';
-import {ObjectMeta} from '@api/root.api';
+import {ObjectMeta,TypeMeta} from '@api/root.api';
 import {ListGroupIdentifier, ListIdentifier} from '../groupids';
 
 @Component({
@@ -34,10 +34,13 @@ import {ListGroupIdentifier, ListIdentifier} from '../groupids';
 export class TraceListComponent extends ResourceListWithStatuses<TraceList, Trace> {
   @Input() initialized = false;
   @Input() objectMeta:ObjectMeta;
+  @Input() typeMeta:TypeMeta;
   @Input() mode = 'all';
   @Input() service:any = null;
 	
 	traceList:any;
+	lastEndpoints:Array<any> = [];
+	nextEndpoints:Array<any> = [];
 	endpointMap:any = {};
 	endpointhover:string = null;
 	endpoints:Array<Array<any>> = [];
@@ -55,10 +58,25 @@ export class TraceListComponent extends ResourceListWithStatuses<TraceList, Trac
 	ngOnChanges(){
 		this.loadEP();
 	}
+	loadSingleEP(){
+		this.lastEndpoints = [];
+		this.nextEndpoints = [];
+		this.jaeger_.getServicePath(this.typeMeta, this.objectMeta).subscribe(_ => {
+			let data:Array<any> = JSON.parse(_).data;
+			data.forEach((item)=>{
+				if(item.parent == this.endpointhover){
+					this.lastEndpoints.push({name: item.child,count:item.callCount});
+				}else if(item.child == this.endpointhover){
+					this.nextEndpoints.push({name: item.parent,count:item.callCount});
+				}
+			});
+			this.jaeger_.doJaegerChange();
+		})
+	}
 	loadEP(){
 		if(this.initialized){
 			if(!this.service){
-				this.jaeger_.getServicePath(this.objectMeta).subscribe(_ => {
+				this.jaeger_.getServicePath(this.typeMeta, this.objectMeta).subscribe(_ => {
 					this.endpoints = [];
 					this.endpointMap = {'space':{name:'space',flex:10,arrows:[],parent:[]}};
 					let data:Array<any> = JSON.parse(_).data;
@@ -88,8 +106,8 @@ export class TraceListComponent extends ResourceListWithStatuses<TraceList, Trac
 					this.cdr_.markForCheck();
 				});
 			}else{
-				this.endpointhover = this.service;
-				this.jaeger_.doJaegerChange();
+				this.endpointhover = this.service + '.';
+				this.loadSingleEP();
 			}
 		}
 	}
@@ -122,10 +140,9 @@ export class TraceListComponent extends ResourceListWithStatuses<TraceList, Trac
 	// 		console.log(data)
 	// 	});
 	// }
-	
   getResourceObservable(params?: HttpParams): Observable<any> {
 		console.log(params);
-		return this.jaeger_.getTraceList(this.endpointhover,this.objectMeta,params);
+		return this.jaeger_.getTraceList(this.endpointhover, this.typeMeta, this.objectMeta,params);
   }
 
   map(resp: any): Trace[] {
