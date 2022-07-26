@@ -714,12 +714,26 @@ func CreateHTTPAPIHandler(iManager integration.IntegrationManager, cManager clie
 			To(apiHandler.handlePrometheus).
 			Writes(meshconfig.QueryInfo{}))
 	apiV1Ws.Route(
+		apiV1Ws.GET("/prometheus/{namespace}/{method}").
+			To(apiHandler.handleNamespacePrometheus).
+			Writes(meshconfig.QueryInfo{}))
+
+	apiV1Ws.Route(
 		apiV1Ws.GET("/meshconfig/{namespace}/{meshconfig}/tracing/{type}").
 			To(apiHandler.handleTracing).
 			Writes(meshconfig.QueryTracingInfo{}))
 	apiV1Ws.Route(
 		apiV1Ws.GET("/meshconfig/{namespace}/{meshconfig}/tracing/{type}/{id}").
 			To(apiHandler.handleTracing).
+			Writes(meshconfig.QueryTracingInfo{}))
+
+	apiV1Ws.Route(
+		apiV1Ws.GET("/tracing/{namespace}/{type}").
+			To(apiHandler.handleNamespaceTracing).
+			Writes(meshconfig.QueryTracingInfo{}))
+	apiV1Ws.Route(
+		apiV1Ws.GET("/tracing/{namespace}/{type}/{id}").
+			To(apiHandler.handleNamespaceTracing).
 			Writes(meshconfig.QueryTracingInfo{}))
 
 	apiV1Ws.Route(
@@ -1288,6 +1302,29 @@ func (apiHandler *APIHandler) handlePrometheus(request *restful.Request, respons
 	response.WriteHeaderAndEntity(http.StatusOK, result)
 }
 
+func (apiHandler *APIHandler) handleNamespacePrometheus(request *restful.Request, response *restful.Response) {
+	osmConfigClient, err := apiHandler.cManager.OsmConfigClient(request)
+	if err != nil {
+		errors.HandleInternalError(response, err)
+		return
+	}
+	k8sClient, err := apiHandler.cManager.Client(request)
+	if err != nil {
+		errors.HandleInternalError(response, err)
+		return
+	}
+
+	namespace := request.PathParameter("namespace")
+	method := request.PathParameter("method")
+	query := request.QueryParameter("query")
+	result, err := meshconfig.ProxyNamespacePrometheus(osmConfigClient, k8sClient, namespace, query, method)
+	if err != nil {
+		errors.HandleInternalError(response, err)
+		return
+	}
+	response.WriteHeaderAndEntity(http.StatusOK, result)
+}
+
 func (apiHandler *APIHandler) handleTracing(request *restful.Request, response *restful.Response) {
 	osmConfigClient, err := apiHandler.cManager.OsmConfigClient(request)
 	if err != nil {
@@ -1304,6 +1341,28 @@ func (apiHandler *APIHandler) handleTracing(request *restful.Request, response *
 	meshconfigname := request.PathParameter("meshconfig")
 	uri := request.Request.URL.RequestURI()
 	result, err := meshconfig.ProxyTracing(osmConfigClient, k8sClient, namespace, meshconfigname, uri)
+	if err != nil {
+		errors.HandleInternalError(response, err)
+		return
+	}
+	response.WriteHeaderAndEntity(http.StatusOK, result)
+}
+
+func (apiHandler *APIHandler) handleNamespaceTracing(request *restful.Request, response *restful.Response) {
+	osmConfigClient, err := apiHandler.cManager.OsmConfigClient(request)
+	if err != nil {
+		errors.HandleInternalError(response, err)
+		return
+	}
+	k8sClient, err := apiHandler.cManager.Client(request)
+	if err != nil {
+		errors.HandleInternalError(response, err)
+		return
+	}
+
+	namespace := request.PathParameter("namespace")
+	uri := request.Request.URL.RequestURI()
+	result, err := meshconfig.ProxyNamespaceTracing(osmConfigClient, k8sClient, namespace, uri)
 	if err != nil {
 		errors.HandleInternalError(response, err)
 		return
