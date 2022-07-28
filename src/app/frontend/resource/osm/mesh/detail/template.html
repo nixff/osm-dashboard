@@ -112,7 +112,7 @@ limitations under the License.
   </div>
 </kd-card>
 
-<kd-namespace-list [endpoint]="namespaceListEndpoint" (onchange)="onListUpdate($event)" [hideable]="true">
+<kd-namespace-list [meshName]="meshconfig?.meshName" [endpoint]="namespaceListEndpoint" (onchange)="onListUpdate($event)" [hideable]="true">
 	<button mat-icon-button
 					[matMenuTriggerFor]="menu" 
 	        i18n-matTooltip

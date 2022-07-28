@@ -32,6 +32,7 @@ import {Status} from '../statuses';
 })
 export class NamespaceListComponent extends ResourceListWithStatuses<NamespaceList, Namespace> {
   @Input() endpoint = EndpointManager.resource(Resource.namespace).list();
+  @Input() meshName: string;
 
   constructor(
     private readonly namespace_: ResourceService<NamespaceList>,
@@ -55,6 +56,11 @@ export class NamespaceListComponent extends ResourceListWithStatuses<NamespaceLi
   }
 
   map(namespaceList: NamespaceList): Namespace[] {
+		namespaceList.namespaces.forEach((namespace:Namespace)=>{
+			if(!!this.meshName){
+				namespace.meshName = this.meshName;
+			}
+		})
     return namespaceList.namespaces;
   }
 

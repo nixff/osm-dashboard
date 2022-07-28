@@ -62,10 +62,10 @@ limitations under the License.
           (click)="onUninstall()"
           i18n>Uninstall</button>
   <button mat-menu-item
-          *ngIf="typeMeta.kind=='namespace'"
+          *ngIf="typeMeta.kind=='namespace' && !!meshName"
           id="unbindosm"
           (click)="onUnbindOSM()"
-          i18n>Unbind OSM</button>
+          ><span i18n>Unbind by </span>{{meshName}}</button>
 </mat-menu>
 
 <a mat-icon-button
