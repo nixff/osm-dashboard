@@ -95,7 +95,7 @@ export class VerberService {
         switchMap(result => {
 					return combineLatest([this.csrfToken_.getTokenForAction('osm'),of(result)]);
         }),
-        mergeMap(([csrfToken, result]) => {
+        mergeMap(([csrfToken]) => {
           return this.http_.post('api/v1/osm/cmd/cli/uninstall', { meshName:objectMeta.name, namespace:objectMeta.namespace } , {headers: {[this.CONFIG.csrfHeaderName]: csrfToken.token}, responseType: 'text'});
         })
       )
