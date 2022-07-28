@@ -85,7 +85,7 @@ export class VerberService {
 			.subscribe(_ => this.onInstall.emit(true), this.handleErrorResponse_.bind(this));
 	}
 	
-  showUninstallDialog(displayName: string, typeMeta: TypeMeta, objectMeta: ObjectMeta): void {
+  showUninstallDialog(displayName: string, typeMeta: TypeMeta, objectMeta: ObjectMeta, meshName: string): void {
     const dialogConfig = this.getDialogConfig_(displayName, typeMeta, objectMeta);
     this.dialog_
       .open(UninstallResourceDialog, dialogConfig)
@@ -96,7 +96,7 @@ export class VerberService {
 					return combineLatest([this.csrfToken_.getTokenForAction('osm'),of(result)]);
         }),
         mergeMap(([csrfToken]) => {
-          return this.http_.post('api/v1/osm/cmd/cli/uninstall', { meshName:objectMeta.name, namespace:objectMeta.namespace } , {headers: {[this.CONFIG.csrfHeaderName]: csrfToken.token}, responseType: 'text'});
+          return this.http_.post('api/v1/osm/cmd/cli/uninstall', { meshName, namespace:objectMeta.namespace } , {headers: {[this.CONFIG.csrfHeaderName]: csrfToken.token}, responseType: 'text'});
         })
       )
       .subscribe(_ => this.onUninstall.emit(true), this.handleErrorResponse_.bind(this));

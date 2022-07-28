@@ -41,6 +41,7 @@ const triggerableResources: string[] = [Resource.cronJob];
 export class MenuComponent implements ActionColumn {
   @Input() objectMeta: ObjectMeta;
   @Input() typeMeta: TypeMeta;
+  @Input() meshName: string;
   @Input() displayName: string;
   @Input() namespaced: boolean;
 
@@ -57,6 +58,10 @@ export class MenuComponent implements ActionColumn {
 
   setTypeMeta(typeMeta: TypeMeta): void {
     this.typeMeta = typeMeta;
+  }
+  
+  setMeshName(meshName: string): void {
+    this.meshName = meshName;
   }
 
   setDisplayName(displayName: string): void {
@@ -138,7 +143,7 @@ export class MenuComponent implements ActionColumn {
   }
 	
 	onUninstall(): void {
-	  this.verber_.showUninstallDialog(this.typeMeta.kind, this.typeMeta, this.objectMeta);
+	  this.verber_.showUninstallDialog(this.typeMeta.kind, this.typeMeta, this.objectMeta, this.meshName);
 	}
 	
   onUnbindOSM(): void {

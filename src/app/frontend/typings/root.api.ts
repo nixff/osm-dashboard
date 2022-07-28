@@ -43,6 +43,7 @@ export interface JobStatus {
 export interface ResourceDetail {
   objectMeta: ObjectMeta;
   typeMeta: TypeMeta;
+  meshName: string;
   errors: K8sError[];
 }
 
@@ -55,6 +56,7 @@ export interface ResourceList {
 export interface Resource {
   objectMeta: ObjectMeta;
   typeMeta: TypeMeta;
+  meshName: string;
 }
 
 export interface ResourceOwner extends Resource {

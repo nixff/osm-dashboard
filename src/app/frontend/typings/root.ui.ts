@@ -54,6 +54,7 @@ export interface ColumnWhenCondition {
 
 export interface ActionColumn {
   setTypeMeta(typeMeta: TypeMeta): void;
+  setMeshName(meshname: string): void;
   setObjectMeta(objectMeta: ObjectMeta): void;
   setDisplayName(displayName: string): void;
   setNamespaced(namespaced: boolean): void;

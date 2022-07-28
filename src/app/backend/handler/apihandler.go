@@ -1136,8 +1136,8 @@ func (apiHandler *APIHandler) handleGetMeshConfigList(request *restful.Request, 
 	dataSelect := parser.ParseDataSelectPathParameter(request)
 	result, err := meshconfig.GetMeshConfigList(osmConfigClient, k8sClient, namespace, dataSelect)
 	if err != nil {
-		errors.HandleInternalError(response, err)
-		return
+		result = &meshconfig.MeshConfigList{MeshConfigs: []meshconfig.MeshConfig{}}
+		log.Println(err)
 	}
 	response.WriteHeaderAndEntity(http.StatusOK, result)
 }

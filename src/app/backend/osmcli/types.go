@@ -57,7 +57,5 @@ type OsmUninstallSpec struct {
 
 func NewOsmUninstallSpec() OsmUninstallSpec {
 	osmUninstallSpec := OsmUninstallSpec{}
-	osmUninstallSpec.MeshName = "osm"
-	osmUninstallSpec.Namespace = "osm-system"
 	return osmUninstallSpec
 }

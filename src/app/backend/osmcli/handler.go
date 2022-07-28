@@ -96,30 +96,6 @@ func (self OsmCliHandler) handleOsmInstall(request *restful.Request, response *r
 	installClient.Atomic = osmInstallSpec.Atomic
 	installClient.Timeout = time.Duration(osmInstallSpec.Timeout) * time.Minute
 
-	/**
-	osm := map[string]interface{}{}
-	values["osm"] = osm
-	osm["deployGrafana"] = true
-	osm["enablePermissiveTrafficPolicy"] = true
-	osm["enforceSingleMesh"] = osmInstallSpec.EnforceSingleMesh
-	osm["meshName"] = osmInstallSpec.MeshName
-	osm["osmNamespace"] = osmInstallSpec.Namespace
-
-	tracing := map[string]interface{}{}
-	osm["tracing"] = tracing
-	tracing["enable"] = osmInstallSpec.Options.Osm.Tracing.Enable
-	osm["deployJaeger"] = osmInstallSpec.Options.Osm.DeployJaeger
-	//tracing["address"] = osmInstallSpec.Osm.Tracing.Address TODO
-	//tracing["port"] = osmInstallSpec.Osm.Tracing.Port
-	//tracing["endpoint"] = osmInstallSpec.Osm.Tracing.Endpoint
-
-	prometheus := map[string]interface{}{}
-	osm["prometheus"] = prometheus
-	osm["deployPrometheus"] = osmInstallSpec.Options.Osm.DeployPrometheus
-	//prometheus["image"] = osmInstallSpec.Osm.Prometheus.Image
-	//prometheus["port"] = osmInstallSpec.Osm.Prometheus.Port
-	**/
-
 	chartRequested, err := loader.LoadArchive(bytes.NewReader(chartTGZSource))
 	if err != nil {
 		backenderrors.HandleInternalError(response, err)
@@ -134,8 +110,6 @@ func (self OsmCliHandler) handleOsmInstall(request *restful.Request, response *r
 	values := param["options"].(map[string]interface{})
 	values["osm"].(map[string]interface{})["osmNamespace"] = param["namespace"]
 	values["osm"].(map[string]interface{})["meshName"] = param["name"]
-	// TODO
-	delete(values["osm"].(map[string]interface{})["prometheus"].(map[string]interface{}), "address")
 
 	osmCofig := v1.ConfigMap{}
 	osmCofig.ObjectMeta = metav1.ObjectMeta{}
@@ -182,13 +156,34 @@ func (self OsmCliHandler) handleOsmUninstall(request *restful.Request, response 
 
 	helmUninstallClient := helm.NewUninstall(actionConfig)
 
-	deleteClusterWideResources := true
+	//deleteClusterWideResources := true
 
-	_, err := helmUninstallClient.Run("osm")
+	k8sClient, err := self.clientManager.Client(request)
+	if err != nil {
+		backenderrors.HandleInternalError(response, err)
+		return
+	}
+	err = k8sClient.CoreV1().ConfigMaps(osmUninstallSpec.Namespace).Delete(context.TODO(), osmUninstallSpec.MeshName+"-mesh-config", metav1.DeleteOptions{})
+	if err != nil {
+		fmt.Printf("Failed to completely delete the following OSM resource types: %+v", osmUninstallSpec.MeshName+"-mesh-config")
+	}
+
+	osmConfigClient, err := self.clientManager.OsmConfigClient(request)
+	if err != nil {
+		backenderrors.HandleInternalError(response, err)
+		return
+	}
+	err = osmConfigClient.ConfigV1alpha2().MeshConfigs(osmUninstallSpec.Namespace).Delete(context.TODO(), osmUninstallSpec.MeshName+"-mesh-config", metav1.DeleteOptions{})
+	if err != nil {
+		fmt.Printf("Failed to completely delete the following OSM resource types: %+v", osmUninstallSpec.MeshName+"-mesh-config")
+	}
+
+	_, err = helmUninstallClient.Run(osmUninstallSpec.MeshName)
 	if err != nil {
 		println("error")
 	}
 
+	/**
 	if deleteClusterWideResources {
 		var failedDeletions []string
 
@@ -216,7 +211,7 @@ func (self OsmCliHandler) handleOsmUninstall(request *restful.Request, response 
 			fmt.Printf("Failed to completely delete the following OSM resource types: %+v", failedDeletions)
 		}
 	}
-
+	*/
 	// TODO
 	action := request.PathParameter("action")
 	token := xsrftoken.Generate(self.clientManager.CSRFKey(), "none", action)

@@ -51,6 +51,7 @@ export class ColumnComponent<T extends ActionColumn> implements OnChanges {
 
     this.componentRef_.instance.setObjectMeta(this.resource.objectMeta);
     this.componentRef_.instance.setTypeMeta(this.resource.typeMeta);
+    this.componentRef_.instance.setMeshName(this.resource.meshName);
 
     if ((this.resource as CRDDetail).names !== undefined) {
       this.componentRef_.instance.setDisplayName((this.resource as CRDDetail).names.kind);
