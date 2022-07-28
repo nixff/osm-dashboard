@@ -46,7 +46,8 @@ limitations under the License.
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let meshconfig">
 					<mat-spinner [diameter]="20" *ngIf="meshconfig.status.bootstrap == 'pending' || meshconfig.status.controller == 'pending' || meshconfig.status.injector == 'pending'"></mat-spinner>
-          <mat-icon [ngClass]="getStatus(meshconfig).iconClass"
+          <mat-icon *ngIf="meshconfig.status.bootstrap != 'pending' && meshconfig.status.controller != 'pending' && meshconfig.status.injector != 'pending'"
+										[ngClass]="getStatus(meshconfig).iconClass"
                     [matTooltip]="getStatus(meshconfig).iconTooltip">
             {{ getStatus(meshconfig).iconName }}
           </mat-icon>
