@@ -129,7 +129,7 @@ export class DialogFormComponent extends ICanDeactivate implements OnInit, OnDes
 			tracingAddress: [meshOptions.osm.tracing.address],
 			tracingPort: [meshOptions.osm.tracing.port],
 			tracingEndpoint: [meshOptions.osm.tracing.endpoint],
-			metricsEnabled: [meshOptions.osm.prometheus.enable],
+			metricsEnabled: [true],
 			metricsBYO: [!meshOptions.osm.deployPrometheus],
 			metricsPort: [meshOptions.osm.prometheus.port],
 			timeout: [300],
@@ -250,7 +250,6 @@ export class DialogFormComponent extends ICanDeactivate implements OnInit, OnDes
 		_options.osm.tracing.endpoint = this.form.get('tracingEndpoint').value;
 		_options.osm.deployPrometheus = !this.form.get('metricsBYO').value;
 		_options.osm.deployGrafana = !this.form.get('metricsBYO').value;
-		_options.osm.prometheus.enable = this.form.get('metricsEnabled').value;
 		_options.osm.prometheus.port = this.form.get('metricsPort').value;
 		
     if (this.selectedMode === EditorMode.YAML) {
@@ -272,7 +271,6 @@ export class DialogFormComponent extends ICanDeactivate implements OnInit, OnDes
 		this.form.get('tracingAddress').setValue(_options.osm.tracing.address, {emitEvent: false});
 		this.form.get('tracingPort').setValue(_options.osm.tracing.port, {emitEvent: false});
 		this.form.get('tracingEndpoint').setValue(_options.osm.tracing.endpoint, {emitEvent: false});
-		this.form.get('metricsEnabled').setValue(_options.osm.prometheus.enable, {emitEvent: false});
 		this.form.get('metricsBYO').setValue(!_options.osm.deployPrometheus, {emitEvent: false});
 		this.form.get('metricsPort').setValue(_options.osm.prometheus.port, {emitEvent: false});
 	}
