@@ -59,9 +59,9 @@ export class TraceListComponent extends ResourceListWithStatuses<TraceList, Trac
 		this.loadEP();
 	}
 	loadSingleEP(){
-		this.lastEndpoints = [];
-		this.nextEndpoints = [];
 		this.jaeger_.getServicePath(this.typeMeta, this.objectMeta).subscribe(_ => {
+			this.lastEndpoints = [];
+			this.nextEndpoints = [];
 			let data:Array<any> = JSON.parse(_).data;
 			data.forEach((item)=>{
 				if(item.parent == this.endpointhover){
@@ -132,14 +132,7 @@ export class TraceListComponent extends ResourceListWithStatuses<TraceList, Trac
 		this.endpointhover = name;
 		this.jaeger_.doJaegerChange();
 	}
-	// getTraceList(){
-	// 	this.jaeger_.getTraceList(this.endpointhover,this.typeMeta,this.objectMeta).subscribe(_ => {
-	// 		let data:Array<any> = JSON.parse(_).data;
-	// 		this.traceList = data;
-	// 		this.cdr_.markForCheck();
-	// 		console.log(data)
-	// 	});
-	// }
+	
   getResourceObservable(params?: HttpParams): Observable<any> {
 		console.log(params);
 		return this.jaeger_.getTraceList(this.endpointhover, this.typeMeta, this.objectMeta,params);

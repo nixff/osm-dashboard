@@ -37,7 +37,7 @@ limitations under the License.
 				</div>
 			</div>
 		</div>
-		<div [hidden]="!service" class="single-endpoint" [class]="!service?'hidden':''" [style]="'height:'+(lastEndpoints.length>nextEndpoints.length?lastEndpoints.length*120:nextEndpoints.length*120)+'px'">
+		<div *ngIf="!!service && (lastEndpoints.length!=0||nextEndpoints.length!=0)" class="single-endpoint" [class]="!service?'hidden':''" [style]="'height:'+(lastEndpoints.length>nextEndpoints.length?lastEndpoints.length*120:nextEndpoints.length*120)+'px'">
 			<div class="last-ep">
 				<div class="last-ep-row" *ngFor="let lastEndpoint of lastEndpoints">
 					<div class="endpoint-group">
