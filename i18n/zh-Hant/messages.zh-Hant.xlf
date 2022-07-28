@@ -6342,7 +6342,7 @@
         <target state="new">traceID</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/components/resourcelist/trace/template.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8990805719441989570" datatype="html">
@@ -6350,7 +6350,7 @@
         <target state="new">Span</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/components/resourcelist/trace/template.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="139651487721336451" datatype="html">
@@ -6358,7 +6358,7 @@
         <target state="new">Processes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/components/resourcelist/trace/template.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">112</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8497528947328199741" datatype="html">
@@ -6366,7 +6366,7 @@
         <target state="new">Time</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/frontend/common/components/resourcelist/trace/template.html</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5052847322835338113" datatype="html">
