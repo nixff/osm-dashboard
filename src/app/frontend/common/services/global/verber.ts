@@ -96,7 +96,7 @@ export class VerberService {
 					return combineLatest([this.csrfToken_.getTokenForAction('osm'),of(result)]);
         }),
         mergeMap(([csrfToken, result]) => {
-          return this.http_.post('api/v1/osm/cmd/cli/uninstall', JSON.parse(result), {headers: {[this.CONFIG.csrfHeaderName]: csrfToken.token}, responseType: 'text'});
+          return this.http_.post('api/v1/osm/cmd/cli/uninstall', { meshName:objectMeta.name, namespace:objectMeta.namespace } , {headers: {[this.CONFIG.csrfHeaderName]: csrfToken.token}, responseType: 'text'});
         })
       )
       .subscribe(_ => this.onUninstall.emit(true), this.handleErrorResponse_.bind(this));
