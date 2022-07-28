@@ -15,7 +15,7 @@ limitations under the License.
 -->
 <kd-mesh-statuses [resourcesRatio]="resourcesRatio" (onchange)="onListUpdate($event)"></kd-mesh-statuses>
 <div *ngIf="meshconfig">
-	<kd-mesh-metric [initialized]="isInitialized" (onchange)="onListUpdate($event)" [objectMeta]="meshconfig?.objectMeta"></kd-mesh-metric>
+	<kd-mesh-metric [initialized]="isInitialized" (onchange)="onListUpdate($event)" [objectMeta]="meshconfig?.objectMeta" [typeMeta]="meshconfig?.typeMeta"></kd-mesh-metric>
 </div>
 <kd-card [initialized]="isInitialized">
   <div title

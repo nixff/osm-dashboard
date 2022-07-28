@@ -23,7 +23,7 @@ import {ResourceListWithStatuses} from '@common/resources/list';
 import {NamespacedResourceService} from '@common/services/resource/resource';
 import {PrometheusService} from '@common/services/global/prometheus';
 import {VerberService} from '@common/services/global/verber';
-import {ObjectMeta} from '@api/root.api';
+import {ObjectMeta,TypeMeta} from '@api/root.api';
 import lodash from 'lodash';
 
 @Component({
@@ -35,6 +35,7 @@ import lodash from 'lodash';
 export class MeshMetricComponent {
   @Input() initialized = false;
   @Input() objectMeta:ObjectMeta;
+  @Input() typeMeta:TypeMeta;
   @Output('onchange') onChange: EventEmitter<OnListChangeEvent> = new EventEmitter();
 	
 	tpsData: any;
@@ -53,50 +54,15 @@ export class MeshMetricComponent {
 	// 	this.loadData();
 	// }
 	loadData(){
-		
-  // {
-  //   "name": "Germany",
-  //   "series": [
-  //     {
-  //       "name": "1990",
-  //       "value": 62000000
-  //     },
-  //     {
-  //       "name": "2010",
-  //       "value": 73000000
-  //     },
-  //     {
-  //       "name": "2011",
-  //       "value": 89400000
-  //     }
-  //   ]
-  // },
-	
-	
-	// {
-	//  "status": "success",
-	//  "data": {
-	//   "result": [
-	//    {
-	//     "metric": {
-	//      "envoy_cluster_name": "bookstore/bookstore|14001",
-	//      "source_namespace": "bookbuyer",
-	//      "source_service": "bookbuyer"
-	//     },
-	//     "values": [
-	//      [
-	//       1658142170.236,
-	//       "2"
-	//      ],
-		this.prometheus_.getTPS(this.objectMeta,!this.tpsData).subscribe(_ => {
+		this.prometheus_.getTPS(this.typeMeta, this.objectMeta,!this.tpsData).subscribe(_ => {
 			this.tpsData = this.mapData(this.tpsData,_);
 			this.prometheus_.doMetricChange();
 		})
-		this.prometheus_.getER(this.objectMeta,!this.erData).subscribe(_ => {
+		this.prometheus_.getER(this.typeMeta, this.objectMeta,!this.erData).subscribe(_ => {
 			this.erData = this.mapData(this.erData,_);
 			this.prometheus_.doMetricChange();
 		})
-		this.prometheus_.getLatency(this.objectMeta,!this.latencyData).subscribe(_ => {
+		this.prometheus_.getLatency(this.typeMeta, this.objectMeta,!this.latencyData).subscribe(_ => {
 			this.latencyData = this.mapData(this.latencyData,_,function (d:any){return isNaN(d/1000)?0:(d/1000)});
 			this.prometheus_.doMetricChange();
 		})
