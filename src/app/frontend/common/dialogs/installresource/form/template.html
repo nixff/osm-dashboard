@@ -122,14 +122,14 @@ limitations under the License.
 				</kd-user-help>
 			</kd-help-section>
 			<kd-help-section [hidden]="!tracingEnabled.value">
-				<mat-slide-toggle formControlName="tracingDeploy" (change)="updateOptionsTab()">
+				<mat-slide-toggle formControlName="tracingBYO" (change)="updateOptionsTab()">
 					Bring Your Own (BYO)
 				</mat-slide-toggle>
 				<kd-user-help>
 					Steps needed to allow an already running instance of Jaeger to integrate with your OSM control plane. 
 				</kd-user-help>
 			</kd-help-section>
-			<kd-help-section [hidden]="!tracingEnabled.value || tracingDeploy.value">
+			<kd-help-section [hidden]="!tracingEnabled.value || !tracingBYO.value">
 				<mat-form-field>
 					<input matInput
 						 formControlName="tracingAddress"
@@ -140,7 +140,7 @@ limitations under the License.
 				<kd-user-help>
 				</kd-user-help>
 			</kd-help-section>
-			<kd-help-section [hidden]="!tracingEnabled.value || tracingDeploy.value">
+			<kd-help-section [hidden]="!tracingEnabled.value || !tracingBYO.value">
 				<mat-form-field>
 					<input matInput
 						 formControlName="tracingPort"
@@ -152,7 +152,7 @@ limitations under the License.
 				<kd-user-help>
 				</kd-user-help>
 			</kd-help-section>
-			<kd-help-section [hidden]="!tracingEnabled.value || tracingDeploy.value">
+			<kd-help-section [hidden]="!tracingEnabled.value || !tracingBYO.value">
 				<mat-form-field>
 					<input matInput
 						 formControlName="tracingEndpoint"
@@ -172,25 +172,14 @@ limitations under the License.
 				</kd-user-help>
 			</kd-help-section>
 			<kd-help-section [hidden]="!metricsEnabled.value">
-				<mat-slide-toggle formControlName="metricsDeploy" (change)="updateOptionsTab()">
+				<mat-slide-toggle formControlName="metricsBYO" (change)="updateOptionsTab()">
 					Bring Your Own (BYO) 
 				</mat-slide-toggle>
 				<kd-user-help>
 					Steps needed to allow an already running Prometheus instance to poll the endpoints of an OSM mesh.
 				</kd-user-help>
 			</kd-help-section>
-			<kd-help-section [hidden]="metricsDeploy.value">
-				<mat-form-field>
-					<input matInput
-						 formControlName="metricsAddress"
-						 placeholder="Metrics Address"
-						 (change)="updateOptionsTab()"
-						 i18n-placeholder />
-				</mat-form-field>
-				<kd-user-help>
-				</kd-user-help>
-			</kd-help-section>
-			<kd-help-section [hidden]="metricsDeploy.value">
+			<kd-help-section [hidden]="!metricsEnabled.value || !metricsBYO.value">
 				<mat-form-field>
 					<input matInput
 						 type="number"
