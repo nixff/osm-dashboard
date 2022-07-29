@@ -45,7 +45,7 @@ func ProxyNamespaceTracing(osmConfigClient osmconfigclientset.Interface, client 
 	promResult, err := QueryJeager(url, strings.Replace(uri, replaceStr, "", 1))
 
 	if err != nil {
-		return nil, err
+		return &QueryTracingInfo{}, nil
 	}
 
 	return promResult, nil
@@ -62,7 +62,7 @@ func ProxyTracing(osmConfigClient osmconfigclientset.Interface, client client.In
 	promResult, err := QueryJeager(url, strings.Replace(uri, replaceStr, "", 1))
 
 	if err != nil {
-		return nil, err
+		return &QueryTracingInfo{}, nil
 	}
 
 	return promResult, nil

@@ -68,7 +68,7 @@ func ProxyPrometheus(osmConfigClient osmconfigclientset.Interface, client client
 	promResult, err := QueryMetric(url, query, method)
 
 	if err != nil {
-		return nil, err
+		return &QueryInfo{}, nil
 	}
 
 	return promResult, nil
@@ -94,7 +94,7 @@ func ProxyNamespacePrometheus(osmConfigClient osmconfigclientset.Interface, clie
 
 	promResult, err := QueryMetric(url, query, method)
 	if err != nil {
-		return nil, err
+		return &QueryInfo{}, nil
 	}
 
 	return promResult, nil
