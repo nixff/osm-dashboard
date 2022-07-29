@@ -40,12 +40,12 @@ export class PrometheusService {
 		this.onMetricChange.next();
 	}
 	getTPS(typeMeta: TypeMeta, objectMeta: ObjectMeta,isInit: boolean) {
-		const query = `topk(2, sum(irate(envoy_cluster_upstream_rq_xx{envoy_response_code_class="2"}[1m])) by (source_namespace, source_service, envoy_cluster_name))`;
+		const query = `topk(2, sum(irate(sidecar_cluster_upstream_rq_xx{}[1m])) by (source_namespace, source_service, sidecar_cluster_name))`;
 		const url = PrometheusResource.getUrl(typeMeta, objectMeta, query,isInit);
 		return this.http_.get(url, {responseType: 'text'});
 	}
 	getER(typeMeta: TypeMeta, objectMeta: ObjectMeta,isInit: boolean) {
-		const query = `topk(2, sum(irate(envoy_cluster_upstream_rq_xx{envoy_response_code_class!="2"}[1m])) by (source_namespace, source_service, envoy_cluster_name))`;
+		const query = `topk(2, sum(irate(sidecar_cluster_upstream_rq_xx{sidecar_response_code_class!="2"}[1m])) by (source_namespace, source_service, sidecar_cluster_name))`;
 		const url = PrometheusResource.getUrl(typeMeta, objectMeta, query,isInit);
 		return this.http_.get(url, {responseType: 'text'});
 	}

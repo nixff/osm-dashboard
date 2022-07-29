@@ -76,8 +76,8 @@ export class MeshMetricComponent {
 		resp.data.result.forEach((item:any)=>{
 			
 			let _key = ``;
-			if(item.metric.envoy_cluster_name){
-				_key = `${item.metric.envoy_cluster_name} - ${item.metric.source_service}`;
+			if(item.metric.sidecar_cluster_name){
+				_key = `${item.metric.sidecar_cluster_name} - ${item.metric.source_service}`;
 			}else if(item.metric.destination_name){
 				_key = `${item.metric.source_name} -> ${item.metric.destination_name}`;
 			}
