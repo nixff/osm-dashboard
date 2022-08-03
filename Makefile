@@ -29,14 +29,14 @@ SYSTEM_BANNER_SEVERITY ?= INFO
 PROD_BINARY = dist/amd64/dashboard
 SERVE_DIRECTORY = .tmp/serve
 SERVE_BINARY = .tmp/serve/dashboard
-RELEASE_IMAGE = kubernetesui/dashboard
-RELEASE_VERSION = v2.6.0
+RELEASE_IMAGE ?= kubernetesui/dashboard
+RELEASE_VERSION ?= v2.6.0
 RELEASE_IMAGE_NAMES += $(foreach arch, $(ARCHITECTURES), $(RELEASE_IMAGE)-$(arch):$(RELEASE_VERSION))
 RELEASE_IMAGE_NAMES_LATEST += $(foreach arch, $(ARCHITECTURES), $(RELEASE_IMAGE)-$(arch):latest)
-HEAD_IMAGE = kubernetesdashboarddev/dashboard
+HEAD_IMAGE ?= kubernetesdashboarddev/dashboard
 HEAD_VERSION = latest
 HEAD_IMAGE_NAMES += $(foreach arch, $(ARCHITECTURES), $(HEAD_IMAGE)-$(arch):$(HEAD_VERSION))
-ARCHITECTURES = amd64 arm64 arm ppc64le s390x
+ARCHITECTURES = amd64 arm64 arm
 
 .PHONY: ensure-version
 ensure-version:
