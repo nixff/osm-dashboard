@@ -37,6 +37,7 @@ HEAD_IMAGE ?= kubernetesdashboarddev/dashboard
 HEAD_VERSION = latest
 HEAD_IMAGE_NAMES += $(foreach arch, $(ARCHITECTURES), $(HEAD_IMAGE)-$(arch):$(HEAD_VERSION))
 ARCHITECTURES = amd64 arm64 arm
+OSM_EDGE_CHART_VERSION ?= 1.1.0
 
 .PHONY: ensure-version
 ensure-version:
@@ -77,8 +78,14 @@ endif
 clean:
 	rm -rf .tmp
 
+.PHONY: osm-edge-chart
+osm-edge-chart:
+	helm repo add osm-edge https://flomesh-io.github.io/osm-edge
+	helm pull osm-edge/osm-edge --version $(OSM_EDGE_CHART_VERSION)
+	mv osm-edge-$(OSM_EDGE_CHART_VERSION).tgz ./src/app/backend/osmcli/chart.tgz
+
 .PHONY: build-backend
-build-backend: ensure-go
+build-backend: ensure-go osm-edge-chart
 	CGO_ENABLED=0 go build -ldflags "-X $(MAIN_PACKAGE)/client.Version=$(RELEASE_VERSION)" -gcflags="all=-N -l" -o $(SERVE_BINARY) $(MAIN_PACKAGE)
 
 .PHONY: build
