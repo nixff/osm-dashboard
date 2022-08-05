@@ -34,3 +34,5 @@ npm-debug.log
 
 # Helm
 aio/deploy/helm-chart/kubernetes-dashboard/charts
+
+src/app/backend/osmcli/chart.tgz
