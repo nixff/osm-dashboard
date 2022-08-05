@@ -280,5 +280,7 @@ docker-build-head: build-cross
 
 .PHONY: docker-push-head
 docker-push-head: docker-build-head
-	docker manifest create --amend $(HEAD_IMAGE):$(HEAD_VERSION) $(HEAD_IMAGE_NAMES)
+	docker manifest create --amend $(HEAD_IMAGE):$(HEAD_VERSION) $(HEAD_IMAGE_NAMES) ; \
+	docker manifest create --amend $(HEAD_IMAGE):latest $(HEAD_IMAGE_NAMES) ; \
 	docker manifest push $(HEAD_IMAGE):$(HEAD_VERSION) ; \
+	docker manifest push $(HEAD_IMAGE):latest

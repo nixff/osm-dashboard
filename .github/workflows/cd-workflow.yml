@@ -83,6 +83,7 @@ jobs:
         shell: bash
         run: |
           export GOPATH=$(go env GOPATH)/bin
+          export HEAD_VERSION=$(date +%Y%m%d%H%M)
           make docker-push-head
 
   release:
